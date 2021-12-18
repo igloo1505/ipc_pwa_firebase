@@ -1,0 +1,34 @@
+@import "variables";
+
+.navbarContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 100vw;
+	// height: 64px;
+	background-color: $brandColor-400;
+	padding: 0.5rem 0.75rem;
+}
+
+.navbarTitleText {
+	font-size: 1.2rem;
+	color: #fff;
+	font-weight: 200;
+	line-height: 1;
+	letter-spacing: 0.1rem;
+}
+.navbarSubtitleText {
+	text-transform: uppercase;
+	font-size: 0.6rem;
+	color: #fff;
+	line-height: 1;
+}
+
+.navbarTitleContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.1rem;
+}

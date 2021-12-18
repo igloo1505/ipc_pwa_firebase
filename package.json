@@ -1,19 +1,45 @@
 {
-  "name": "ipc_pwa_firebase",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.0.7",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "eslint": "8.5.0",
-    "eslint-config-next": "12.0.7"
-  }
+	"name": "ipc_pwa_firebase",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^1.7.1",
+		"aws-sdk": "^2.1046.0",
+		"axios": "^0.24.0",
+		"bcryptjs": "^2.4.3",
+		"clsx": "^1.1.1",
+		"cookie-parser": "^1.4.6",
+		"cookies": "^0.8.0",
+		"evergreen-ui": "^6.6.3",
+		"firebase": "^9.6.1",
+		"googleapis": "^92.0.0",
+		"gsap": "^3.9.0",
+		"hamburger-react": "^2.4.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongodb": "^4.2.2",
+		"mongoose": "^6.1.2",
+		"mongoose-autopopulate": "^0.16.0",
+		"multer": "^1.4.4",
+		"next": "12.0.7",
+		"next-connect": "^0.11.0",
+		"next-cookies": "^2.0.3",
+		"next-pwa": "^5.4.4",
+		"nextjs-cors": "^2.1.0",
+		"react": "17.0.2",
+		"react-dom": "17.0.2",
+		"react-redux": "^7.2.6",
+		"redux": "^4.1.2",
+		"sass": "^1.45.0",
+		"socket.io": "^4.4.0",
+		"socket.io-client": "^4.4.0"
+	},
+	"devDependencies": {
+		"eslint": "8.5.0",
+		"eslint-config-next": "12.0.7"
+	}
 }
