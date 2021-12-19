@@ -18,8 +18,8 @@ const Drawer = ({
 }) => {
 	useEffect(() => {
 		// console.log("Running drawer animation");
-		toggleDrawerAnimation(drawerIsOpen);
-	}, [drawerIsOpen]);
+		toggleDrawerAnimation(drawerIsOpen, settings.drawerEase);
+	}, [drawerIsOpen, viewportWidth]);
 	// if (viewportWidth > settings.navbarDrawerBreakpoint) {
 	return (
 		<div
@@ -60,31 +60,21 @@ const mapStateToProps = (state, props) => ({
 
 export default connect(mapStateToProps)(Drawer);
 
-const toggleDrawerAnimation = (isOpen) => {
+const toggleDrawerAnimation = (isOpen, drawerEaseSettings) => {
 	if (isOpen) {
-		gsap.fromTo(
-			`#${drawerContainerId}`,
-			{
-				transform: "translateX(100%)",
-				opacity: 0,
-			},
-			{
-				transform: "translateX(0)",
-				opacity: 1,
-			}
-		);
+		gsap.to(`#${drawerContainerId}`, {
+			transform: "translateX(0)",
+			ease: drawerEaseSettings.drawerEaseString,
+			duration: drawerEaseSettings.duration,
+			opacity: 1,
+		});
 	}
 	if (!isOpen) {
-		gsap.fromTo(
-			`#${drawerContainerId}`,
-			{
-				transform: "translateX(0)",
-				opacity: 1,
-			},
-			{
-				transform: "translateX(100%)",
-				// opacity: 0,
-			}
-		);
+		gsap.to(`#${drawerContainerId}`, {
+			transform: "translateX(100%)",
+			// ease: "bounce.out",
+			duration: 0.2,
+			// opacity: 0,
+		});
 	}
 };

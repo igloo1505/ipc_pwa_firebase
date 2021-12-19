@@ -33,3 +33,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# random stuff I crammed into this workspace that doesn't have a purpose except making life easier during development...
+
+/notepad
+

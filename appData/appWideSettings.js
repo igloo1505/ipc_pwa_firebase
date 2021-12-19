@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
+	// navigation
 	navbarDrawerBreakpoint: 1300,
 	navLinks: [
 		{
@@ -19,4 +20,8 @@ export default {
 			displayString: "Serve",
 		},
 	],
+	drawerEase: {
+		duration: 1,
+		drawerEaseString: "bounce.out",
+	},
 };

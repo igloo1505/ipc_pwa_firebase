@@ -25,7 +25,12 @@ const Navbar = ({
 	};
 
 	return (
-		<div className={clsx(styles.navbarContainer)}>
+		<div
+			className={clsx(
+				styles.navbarContainer,
+				drawerIsOpen && styles.resetShadow
+			)}
+		>
 			<Link href={"/"}>
 				<div className={styles.navbarTitleContainer}>
 					<div className={styles.navbarTitleText}>IMMANUEL</div>
@@ -46,11 +51,7 @@ const Navbar = ({
 			{viewportWidth > settings.navbarDrawerBreakpoint && (
 				<div className={styles.navbarLinkSection}>
 					{settings.navLinks.map((link, index) => {
-						return (
-							<Link key={`navbar-link-${index}`} href={link.href}>
-								<div className={styles.navbarLink}>{link.displayString}</div>
-							</Link>
-						);
+						return <LinkItem key={`navbar-link-${index}`} link={link} />;
 					})}
 				</div>
 			)}
@@ -64,3 +65,25 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps)(Navbar);
+
+const LinkItem = ({ link }) => {
+	const [hovered, setHovered] = useState(false);
+
+	return (
+		<Link href={link.href}>
+			<div
+				className={styles.navbarInnerWrapper}
+				onMouseEnter={() => setHovered(true)}
+				onMouseLeave={() => setHovered(false)}
+			>
+				<div className={styles.navbarLink}>{link.displayString}</div>
+				<div
+					className={clsx(
+						styles.navbarLinkBottomBorder,
+						hovered && styles.navbarLinkBottomBorderHovered
+					)}
+				></div>
+			</div>
+		</Link>
+	);
+};

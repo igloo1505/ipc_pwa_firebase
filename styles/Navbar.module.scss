@@ -9,9 +9,16 @@
 	// height: 64px;
 	background-color: $brandColor-400;
 	padding: 0.5rem 0.75rem;
+	box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.25);
+	transition: box-shadow 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045) 0s;
 	@media screen and (min-width: $breakpoint-desktop) {
 		padding: 1rem;
 	}
+}
+
+.resetShadow {
+	box-shadow: none;
+	transition: box-shadow 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .navbarTitleText {
@@ -54,9 +61,30 @@
 	font-weight: 200;
 	line-height: 1;
 	letter-spacing: 0.1rem;
-	margin: 0.5rem;
+
 	text-transform: uppercase;
 	&:hover {
 		cursor: pointer;
 	}
+}
+
+.navbarInnerWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0.5rem;
+}
+
+.navbarLinkBottomBorder {
+	width: 100%;
+	height: 2px;
+	// background-color: $brandAccent-600;
+	background-color: #fff;
+	transition: all 0.3s ease-in-out;
+	transform: scaleX(0);
+}
+
+.navbarLinkBottomBorderHovered {
+	transform: scaleX(1);
 }
