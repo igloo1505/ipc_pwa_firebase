@@ -19,7 +19,7 @@ const modalReducer = createReducer(initialState, (builder) => {
 				...state.navigation,
 				drawer: {
 					...state.navigation.drawer,
-					isOpen: !state.navigation.drawer.isOpen,
+					isOpen: action?.payload?.isOpen ?? !state.navigation.drawer.isOpen,
 				},
 			},
 		};

@@ -28,9 +28,9 @@ const Navbar = ({
 			</div>
 			<div style={{ zIndex: 9999 }} id="navbar-hamburger">
 				<Hamburger
-					toggled={!drawerIsOpen}
+					toggled={drawerIsOpen}
 					toggle={handleBurgerClick}
-					color={!drawerIsOpen ? "#000" : "#fff"}
+					color={drawerIsOpen ? "#000" : "#fff"}
 					direction="right"
 				/>
 			</div>

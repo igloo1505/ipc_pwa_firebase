@@ -1,0 +1,14 @@
+@import "variables";
+
+.sidebarLinkContainerOuter {
+	padding: 0.5rem 0.75rem;
+}
+.sidebarLinkActive {
+	border-left: 2px solid $brandColor-600;
+}
+// .sidebarLinkContainer {
+// 	// padding-top: 64px;
+// 	border-top: 1px solid $brandColor-300;
+// }
+.sidebarLinkContent {
+}

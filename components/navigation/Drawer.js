@@ -1,10 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Drawer.module.scss";
 import { useDispatch, connect } from "react-redux";
 import clsx from "clsx";
 import gsap from "gsap";
+import Sidebar_Link from "./Sidebar_Link";
 
 const drawerContainerId = "drawer-container";
+
+const drawerLinks = [
+	{
+		href: "/belong",
+		displayString: "Belong",
+	},
+	{
+		href: "/learn",
+		displayString: "Learn",
+	},
+	{
+		href: "/grow",
+		displayString: "Grow",
+	},
+	{
+		href: "/serve",
+		displayString: "Serve",
+	},
+];
 
 const Drawer = ({
 	UI: {
@@ -13,9 +33,14 @@ const Drawer = ({
 		},
 	},
 }) => {
+	const [drawerOpen, setDrawerOpen] = useState(false);
+
 	useEffect(() => {
+		// console.log("Running drawer animation");
+		setDrawerOpen(drawerIsOpen);
 		toggleDrawerAnimation(drawerIsOpen);
 	}, [drawerIsOpen]);
+
 	return (
 		<div
 			className={clsx(
@@ -23,7 +48,16 @@ const Drawer = ({
 				// !drawerIsOpen && styles.drawerContainerClosed
 			)}
 			id={drawerContainerId}
-		></div>
+		>
+			<div className={styles.sidebarLinkSection}>
+				<div className={styles.sidebarTopOffset}></div>
+				{drawerLinks.map((linkData, index) => {
+					return (
+						<Sidebar_Link key={`sidebar-link-${index}`} linkData={linkData} />
+					);
+				})}
+			</div>
+		</div>
 	);
 };
 
@@ -39,12 +73,11 @@ const toggleDrawerAnimation = (isOpen) => {
 		gsap.fromTo(
 			`#${drawerContainerId}`,
 			{
-				transform: "translateX(0)",
+				transform: "translateX(100%)",
 				opacity: 0,
-				// backgroundColor: "green",
 			},
 			{
-				transform: "translateX(100%)",
+				transform: "translateX(0)",
 				opacity: 1,
 			}
 		);
@@ -53,13 +86,12 @@ const toggleDrawerAnimation = (isOpen) => {
 		gsap.fromTo(
 			`#${drawerContainerId}`,
 			{
-				transform: "translateX(100%)",
-				opacity: 0,
-				// backgroundColor: "green",
-			},
-			{
 				transform: "translateX(0)",
 				opacity: 1,
+			},
+			{
+				transform: "translateX(100%)",
+				opacity: 0,
 			}
 		);
 	}
