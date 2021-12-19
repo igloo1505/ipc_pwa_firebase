@@ -9,6 +9,9 @@
 	// height: 64px;
 	background-color: $brandColor-400;
 	padding: 0.5rem 0.75rem;
+	@media screen and (min-width: $breakpoint-desktop) {
+		padding: 1rem;
+	}
 }
 
 .navbarTitleText {
@@ -31,4 +34,29 @@
 	justify-content: center;
 	align-items: center;
 	gap: 0.1rem;
+	&:hover {
+		cursor: pointer;
+	}
+}
+.navbarLinkSection {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.5rem;
+	&:hover {
+		cursor: pointer;
+	}
+}
+.navbarLink {
+	font-size: 1.1rem;
+	color: #fff;
+	font-weight: 200;
+	line-height: 1;
+	letter-spacing: 0.1rem;
+	margin: 0.5rem;
+	text-transform: uppercase;
+	&:hover {
+		cursor: pointer;
+	}
 }

@@ -8,6 +8,10 @@ const initialState = {
 			isOpen: false,
 		},
 	},
+	viewport: {
+		width: null,
+		height: null,
+	},
 };
 
 const modalReducer = createReducer(initialState, (builder) => {
@@ -21,6 +25,16 @@ const modalReducer = createReducer(initialState, (builder) => {
 					...state.navigation.drawer,
 					isOpen: action?.payload?.isOpen ?? !state.navigation.drawer.isOpen,
 				},
+			},
+		};
+	});
+	builder.addCase(Types.SET_VIEWPORT_DIMENSIONS, (state, action) => {
+		return {
+			...state,
+			viewport: {
+				...state.viewport,
+				width: action.payload?.width ?? state.viewport.width,
+				height: action.payload?.height ?? state.viewport.height,
 			},
 		};
 	});

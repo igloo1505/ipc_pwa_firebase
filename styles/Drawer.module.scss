@@ -1,14 +1,27 @@
 @import "variables";
 
 .drawerContainer {
-	width: 60vw;
+	width: 50vw;
 	height: 100vh;
 	background-color: #fff;
 	position: absolute;
 	top: 0;
 	right: 0;
 	z-index: 999;
-	overflow: hidden;
+	// overflow: hidden;
+	@media screen and (min-width: $breakpoint-desktop) {
+		display: none;
+		& > * {
+			display: none;
+		}
+	}
+}
+.drawerContainerOpen {
+	// box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+}
+.sidebarLinkSection {
+	box-shadow: -3px -3px 10px #d9d9d9, 3px 3px 10px #ffffff;
+	min-height: 100%;
 }
 // .drawerContainerClosed {
 // 	width: 0vw;
@@ -21,7 +34,49 @@
 
 .sidebarTopOffset {
 	height: 64px;
-	border-bottom: 1px solid $brandColor-100;
+	// border-bottom: 1px solid $brandColor-100;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	// just fucking around, probably delete
+
+	// background: linear-gradient(315deg, #ffffff, #e6e6e6);
+	// box-shadow: inset 5px 5px 6px #e3e3e3, inset -5px -5px 6px #ffffff;
+	box-shadow: inset 6px 6px 9px #e3e3e3, inset -6px -6px 9px #ffffff;
+	// box-shadow: -5px -5px 10px #d9d9d9, 5px 5px 10px #ffffff;
+}
+.sidebarTopIconOffset {
+	width: 48px;
+	margin: 0 0.75rem;
+	height: 100%;
+	// border: 1px solid $brandColor-100;
+}
+.sidebarTopOffsetContent {
+	width: 100%;
+	height: 100%;
+	// background-color: purple;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+.sidebarTopOffsetInviteText {
+	font-size: 0.75rem;
+	// font-weight: bold;
+	color: $brandColor-700;
+	text-align: center;
+	line-height: 1;
+}
+.sidebarTopOffsetText {
+	font-size: 1rem;
+	font-weight: bold;
+	color: $brandColor-900;
+	text-align: center;
+	line-height: 1;
 }
 
 .sidebarLinkSection {

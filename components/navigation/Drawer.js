@@ -4,54 +4,45 @@ import { useDispatch, connect } from "react-redux";
 import clsx from "clsx";
 import gsap from "gsap";
 import Sidebar_Link from "./Sidebar_Link";
+import settings from "../../appData/appWideSettings";
 
 const drawerContainerId = "drawer-container";
-
-const drawerLinks = [
-	{
-		href: "/belong",
-		displayString: "Belong",
-	},
-	{
-		href: "/learn",
-		displayString: "Learn",
-	},
-	{
-		href: "/grow",
-		displayString: "Grow",
-	},
-	{
-		href: "/serve",
-		displayString: "Serve",
-	},
-];
 
 const Drawer = ({
 	UI: {
 		navigation: {
 			drawer: { isOpen: drawerIsOpen },
 		},
+		viewport: { width: viewportWidth, height: viewportHeight },
 	},
 }) => {
-	const [drawerOpen, setDrawerOpen] = useState(false);
-
 	useEffect(() => {
 		// console.log("Running drawer animation");
-		setDrawerOpen(drawerIsOpen);
 		toggleDrawerAnimation(drawerIsOpen);
 	}, [drawerIsOpen]);
-
+	// if (viewportWidth > settings.navbarDrawerBreakpoint) {
 	return (
 		<div
 			className={clsx(
-				styles.drawerContainer
+				styles.drawerContainer,
+				drawerIsOpen && styles.drawerContainerOpen
 				// !drawerIsOpen && styles.drawerContainerClosed
 			)}
 			id={drawerContainerId}
 		>
+			<div className={styles.sidebarTopOffset}>
+				<div className={styles.sidebarTopOffsetContent}>
+					<span className={styles.sidebarTopOffsetInviteText}>
+						Worship with us
+					</span>
+					<span className={styles.sidebarTopOffsetText}>
+						Sundays at 10:00am
+					</span>
+				</div>
+				<div className={styles.sidebarTopIconOffset}></div>
+			</div>
 			<div className={styles.sidebarLinkSection}>
-				<div className={styles.sidebarTopOffset}></div>
-				{drawerLinks.map((linkData, index) => {
+				{settings.navLinks.map((linkData, index) => {
 					return (
 						<Sidebar_Link key={`sidebar-link-${index}`} linkData={linkData} />
 					);
@@ -59,6 +50,7 @@ const Drawer = ({
 			</div>
 		</div>
 	);
+	// }
 };
 
 const mapStateToProps = (state, props) => ({
@@ -91,7 +83,7 @@ const toggleDrawerAnimation = (isOpen) => {
 			},
 			{
 				transform: "translateX(100%)",
-				opacity: 0,
+				// opacity: 0,
 			}
 		);
 	}
