@@ -7,6 +7,7 @@ import Sidebar_Link from "./Sidebar_Link";
 import settings from "../../appData/appWideSettings";
 import { Button } from "evergreen-ui";
 import { handleLogout } from "../../actions/userActions";
+import * as Types from "../../state/TYPES";
 const drawerContainerId = "drawer-container";
 
 const Drawer = ({
@@ -19,12 +20,18 @@ const Drawer = ({
 	access: { authenticated: isAuthenticated },
 	handleLogout,
 }) => {
+	const dispatch = useDispatch();
 	useEffect(() => {
 		toggleDrawerAnimation(drawerIsOpen, settings.drawerEase);
 	}, [drawerIsOpen, viewportWidth]);
 
 	const handleLogoutInternally = () => {
 		handleLogout();
+	};
+	const handleDrawerClose = () => {
+		dispatch({
+			type: Types.CLOSE_DRAWER,
+		});
 	};
 
 	return (
@@ -36,6 +43,9 @@ const Drawer = ({
 			)}
 			id={drawerContainerId}
 		>
+			{drawerIsOpen && (
+				<div className={styles.backdrop} onClick={handleDrawerClose} />
+			)}
 			<div className={styles.sidebarTopOffset}>
 				<div className={styles.sidebarTopOffsetContent}>
 					<span className={styles.sidebarTopOffsetInviteText}>

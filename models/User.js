@@ -33,6 +33,18 @@ const UserSchema = mongoose.Schema(
 		profileImgUrl: {
 			type: String,
 		},
+		isAdmin: {
+			type: Boolean,
+			default: false,
+		},
+		allowGrantAccessToOthers: {
+			type: Boolean,
+			default: false,
+		},
+		notificationBetaGroup: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );
