@@ -7,18 +7,49 @@ import CarouselEvent from "./CarouselEvent";
 
 const pseudoEvents = [
 	{
-		text: "event one",
+		content: {
+			title: "event one",
+			subTitle: "Subtitle one",
+			description:
+				"Random description that probably should have a character limit around 200 characters. one",
+			showSignature: false,
+		},
+		linkHref: "www.igloodevelopment.dev",
+		imgUrl: null,
+		name: "One",
 	},
 	{
-		text: "event two",
+		content: {
+			title: "event two",
+			subTitle: "Subtitle two",
+			description:
+				"Random description that probably should have a character limit around 200 characters. two",
+			showSignature: false,
+		},
+		linkHref: "www.igloodevelopment.dev",
+		imgUrl: null,
+		name: "Two",
 	},
 	{
-		text: "event three",
+		content: {
+			title: "event three",
+			subTitle: "Subtitle three",
+			description:
+				"Random description that probably should have a character limit around 200 characters. three",
+			showSignature: false,
+		},
+		linkHref: "www.igloodevelopment.dev",
+		imgUrl: null,
+		name: "Three",
 	},
 ];
 
 const Carousel = () => {
 	const [currentVisibleEvent, setCurrentVisibleEvent] = useState(0);
+	const [events, setEvents] = useState([]);
+	useEffect(() => {
+		setEvents(pseudoEvents);
+	}, []);
 	const [styles, api] = useSpring(() => ({
 		transform: "translateX(0px)",
 		backgroundColor: "#fff",
@@ -75,7 +106,7 @@ const Carousel = () => {
 				className={style.carouselSlidingBit}
 				style={{
 					// position: "absolute",
-					width: "300vw",
+					width: `${events.length}00vw`,
 					height: "40vh",
 					backgroundColor: "#fff",
 					top: 0,
@@ -83,7 +114,7 @@ const Carousel = () => {
 					...styles,
 				}}
 			>
-				{pseudoEvents.map((event, index) => {
+				{events.map((event, index) => {
 					return (
 						<CarouselEvent
 							key={`carouselEvent-${index}`}
