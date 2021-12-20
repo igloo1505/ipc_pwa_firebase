@@ -5,7 +5,8 @@ import clsx from "clsx";
 import gsap from "gsap";
 import Sidebar_Link from "./Sidebar_Link";
 import settings from "../../appData/appWideSettings";
-
+import { Button } from "evergreen-ui";
+import { handleLogout } from "../../actions/userActions";
 const drawerContainerId = "drawer-container";
 
 const Drawer = ({
@@ -15,12 +16,17 @@ const Drawer = ({
 		},
 		viewport: { width: viewportWidth, height: viewportHeight },
 	},
+	access: { authenticated: isAuthenticated },
+	handleLogout,
 }) => {
 	useEffect(() => {
-		// console.log("Running drawer animation");
 		toggleDrawerAnimation(drawerIsOpen, settings.drawerEase);
 	}, [drawerIsOpen, viewportWidth]);
-	// if (viewportWidth > settings.navbarDrawerBreakpoint) {
+
+	const handleLogoutInternally = () => {
+		handleLogout();
+	};
+
 	return (
 		<div
 			className={clsx(
@@ -42,11 +48,25 @@ const Drawer = ({
 				<div className={styles.sidebarTopIconOffset}></div>
 			</div>
 			<div className={styles.sidebarLinkSection}>
-				{settings.navLinks.map((linkData, index) => {
-					return (
-						<Sidebar_Link key={`sidebar-link-${index}`} linkData={linkData} />
-					);
-				})}
+				<div clasName={styles.sidebarLinkSectionInner}>
+					{settings.navLinks.map((linkData, index) => {
+						return (
+							<Sidebar_Link key={`sidebar-link-${index}`} linkData={linkData} />
+						);
+					})}
+				</div>
+				<div className={styles.logoutContainer}>
+					{isAuthenticated && (
+						<Button
+							marginRight={16}
+							appearance="primary"
+							intent="danger"
+							onClick={handleLogoutInternally}
+						>
+							Logout
+						</Button>
+					)}
+				</div>
 			</div>
 		</div>
 	);
@@ -56,9 +76,10 @@ const Drawer = ({
 const mapStateToProps = (state, props) => ({
 	props: props,
 	UI: state.UI,
+	access: state.access,
 });
 
-export default connect(mapStateToProps)(Drawer);
+export default connect(mapStateToProps, { handleLogout })(Drawer);
 
 const toggleDrawerAnimation = (isOpen, drawerEaseSettings) => {
 	if (isOpen) {

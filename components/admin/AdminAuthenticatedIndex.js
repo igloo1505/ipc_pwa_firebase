@@ -24,7 +24,8 @@ export default AdminAuthenticatedIndex;
 const animateEntrance = () => {
 	gsap.from(`#${slidingContainerId}`, {
 		duration: 1,
-		x: -100,
+		y: 500,
 		opacity: 0,
+		ease: "elastic.out(1, 0.7)",
 	});
 };

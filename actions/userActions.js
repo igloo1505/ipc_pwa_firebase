@@ -30,3 +30,30 @@ export const authenticate = (user) => async (dispatch) => {
 		});
 	}
 };
+
+export const handleLogout = (userData) => async (dispatch) => {
+	dispatch({
+		type: Types.LOGOUT_USER,
+		// payload: userData,
+	});
+	// Sync stuff here later...
+	// try {
+	// 	const res = await useAxios({
+	// 		method: "post",
+	// 		url: "/api/auth/logout",
+	// 		data: userData,
+	// 	});
+	// 	console.log("res: ", res.data);
+	// 	res?.data?.success &&
+	// 		dispatch({
+	// 			type: Types.LOGOUT_USER,
+	// 			payload: res.data,
+	// 		});
+	// } catch (error) {
+	// 	console.error(error);
+	// 	dispatch({
+	// 		type: Types.SERVER_ERROR,
+	// 		payload: error,
+	// 	});
+	// }
+};

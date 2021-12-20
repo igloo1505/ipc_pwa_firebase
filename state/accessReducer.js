@@ -18,6 +18,12 @@ const accessReducer = createReducer(initialState, (builder) => {
 			error: null,
 		};
 	});
+	builder.addCase(Types.LOGOUT_USER, (state, action) => {
+		console.log("action: ", action.payload);
+		return {
+			...initialState,
+		};
+	});
 });
 
 export default accessReducer;
