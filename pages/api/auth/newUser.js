@@ -7,12 +7,10 @@ import Cookies from "cookies";
 import User from "../../../models/User";
 // import NextCors from "nextjs-cors";
 // import { handleRememberMe } from "../../../util/handleRememberMe";
-
+import { handleCookies } from "../../../utils/handleCookies";
 import colors from "colors";
 
 const handler = nc();
-
-const tokenExpirationInHours = 24;
 
 handler.post(async (req, res) => {
 	try {
@@ -23,7 +21,10 @@ handler.post(async (req, res) => {
 			return res.json({
 				success: false,
 				message: "User already exists",
-				UIMessage: "User already exists",
+				UIMessage: {
+					text: "User already exists",
+					type: "error",
+				},
 			});
 		}
 		let newUser = new User({
@@ -37,26 +38,22 @@ handler.post(async (req, res) => {
 		let savedUser = await newUser.save();
 		savedUser = savedUser.toObject();
 		delete savedUser.password;
-		let token = jwt.sign(
-			{
-				_id: savedUser._id,
-				exp: Math.floor(Date.now() / 1000) + 60 * 60 * tokenExpirationInHours,
-			},
-			process.env.JWT_SECRET
-		);
-		cookies.set("token", token);
+		handleCookies(cookies, savedUser);
 		// if (req.body.rememberMe) {
 		//     await handleRememberMe(user, req, cookies);
 		//   }
 		return res.json({
 			success: true,
 			message: "User created",
-			UIMessage: "User created",
+			UIMessage: {
+				text: "User created",
+				type: "success",
+			},
 			user: savedUser,
 		});
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ error: "There was an error logging in." });
+		res.status(500).json({ error: "There was an error creating that user." });
 	}
 });
 

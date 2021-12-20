@@ -5,12 +5,30 @@ import AdminLoginCardBanner from "./adminLoginCardBanner";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import clsx from "clsx";
+import { authenticate } from "../../actions/userActions";
+import { connect } from "react-redux";
 
-const adminLoginCard = () => {
+const adminLoginCard = ({ authenticate }) => {
 	const [shouldHidePassword, setShouldHidePassword] = useState(true);
+	const [formData, setFormData] = useState({
+		email: "",
+		password: "",
+	});
 	const handleIconClick = () => {
 		setShouldHidePassword(!shouldHidePassword);
 	};
+
+	const handleLogin = () => {
+		console.log("formData: ", formData);
+		authenticate(formData);
+	};
+	const handleChange = (event) => {
+		setFormData({
+			...formData,
+			[event.target.name]: event.target.value,
+		});
+	};
+
 	return (
 		<div className={styles.adminCardOuter}>
 			<div className={styles.innerAdminCardContainer}>
@@ -25,17 +43,21 @@ const adminLoginCard = () => {
 						className={styles.adminCardInput}
 						width="100%"
 						type="email"
+						onChange={handleChange}
+						name="email"
 					/>
 					<div className={styles.passwordInputWrapper}>
 						<TextInputField
 							id="ids-are-optional"
 							label="Password"
+							name="password"
 							required
 							// description="This is a description."
 							placeholder={"password"}
 							className={styles.adminCardInput}
 							width="100%"
 							type={shouldHidePassword ? "password" : "text"}
+							onChange={handleChange}
 						/>
 						{shouldHidePassword ? (
 							<AiFillEyeInvisible
@@ -54,7 +76,12 @@ const adminLoginCard = () => {
 					</div>
 				</div>
 				<div className={styles.adminCardButtonContainer}>
-					<Button marginRight={16} appearance="primary" intent="primary">
+					<Button
+						marginRight={16}
+						appearance="primary"
+						intent="primary"
+						onClick={handleLogin}
+					>
 						Login
 					</Button>
 				</div>
@@ -63,4 +90,9 @@ const adminLoginCard = () => {
 	);
 };
 
-export default adminLoginCard;
+const mapStateToProps = (state, props) => ({
+	...state,
+	props: props,
+});
+
+export default connect(mapStateToProps, { authenticate })(adminLoginCard);

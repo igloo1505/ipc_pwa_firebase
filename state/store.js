@@ -8,7 +8,8 @@ import {
 } from "@reduxjs/toolkit";
 import { createStore } from "redux";
 import UIReducer from "./UIReducer";
-
+import networkReducer from "./networkReducer";
+import accessReducer from "./accessReducer";
 const initialState = {};
 
 const withDevtools = () => {
@@ -19,6 +20,8 @@ const withDevtools = () => {
 const store = configureStore({
 	reducer: {
 		UI: UIReducer,
+		network: networkReducer,
+		access: accessReducer,
 	},
 	devTools: () => withDevtools(),
 });
