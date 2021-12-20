@@ -1,0 +1,66 @@
+@import "variables";
+
+.tileOuterContainer {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	// min-height: 200px;
+	// min-width: 30vw;
+	border-radius: 20px;
+	background-color: $brandColor-700;
+	border: 1px solid #ffffff88;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 9px 9px 18px #8b8b8b, -9px -9px 18px #ffffff;
+	transition: box-shadow 0.3s ease-in-out;
+	&:hover {
+		box-shadow: 5px 5px 10px #a6a6a6, -5px -5px 10px #ffffff;
+	}
+}
+
+.tileText {
+	color: #fff;
+	font-weight: 800;
+	font-size: 1.5rem;
+	text-align: center;
+	padding: 2rem 0.5rem;
+}
+.tileTextIcon {
+	color: #fff;
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.set-background-1 {
+	background-color: #910c22;
+}
+.set-background-2 {
+	background-color: #ded63e;
+}
+.set-background-3 {
+	background-color: #de2846;
+}
+.set-background-4 {
+	background-color: #12a1de;
+}
+.set-background-5 {
+	background-color: #136c91;
+}
+.set-background-6 {
+	background-color: #28de4a;
+}
+.set-background-7 {
+	background-color: #f53520;
+}
+.set-background-8 {
+	background-color: #f520ae;
+}
+.set-background-9 {
+	background-color: #d81eeb;
+}
