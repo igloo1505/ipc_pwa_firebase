@@ -1,0 +1,45 @@
+@import "variables";
+.adminLoginBannerContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.logoContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	// overflow: visible;
+	gap: 0.35rem;
+}
+.titleText {
+	font-size: 1.2rem;
+	// color: #fff;
+	font-weight: 200;
+	line-height: 1;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+}
+.subTitleText {
+	text-transform: uppercase;
+	font-size: 0.6rem;
+	// color: #fff;
+	line-height: 1;
+}
+.captionText {
+	// text-transform: uppercase;
+	font-size: 0.6rem;
+	// color: #fff;
+	line-height: 1;
+	// font-style: italic;
+}
+
+.horizontalDivider {
+	width: 100%;
+	height: 0.1rem;
+	background-color: $brandColor-400;
+}
