@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, TextInputField } from "evergreen-ui";
+import React, { useState, useEffect } from "react";
+import { Button, Checkbox, TextInputField } from "evergreen-ui";
 import styles from "../../styles/adminLoginCard.module.scss";
 import AdminLoginCardBanner from "./adminLoginCardBanner";
 import { AiFillEyeInvisible } from "react-icons/ai";
@@ -7,12 +7,20 @@ import { BiShow } from "react-icons/bi";
 import clsx from "clsx";
 import { authenticate } from "../../actions/userActions";
 import { connect } from "react-redux";
+import gsap from "gsap";
+
+const slidingContainerId = "adminLoginCard-sliding-container";
 
 const adminLoginCard = ({ authenticate }) => {
 	const [shouldHidePassword, setShouldHidePassword] = useState(true);
+	const [validate, setValidate] = useState({
+		email: true,
+		password: true,
+	});
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
+		rememberMe: false,
 	});
 	const handleIconClick = () => {
 		setShouldHidePassword(!shouldHidePassword);
@@ -29,8 +37,12 @@ const adminLoginCard = ({ authenticate }) => {
 		});
 	};
 
+	useEffect(() => {
+		animateEntrance();
+	}, []);
+
 	return (
-		<div className={styles.adminCardOuter}>
+		<div className={styles.adminCardOuter} id={slidingContainerId}>
 			<div className={styles.innerAdminCardContainer}>
 				<AdminLoginCardBanner />
 				<div className={styles.adminCardInner}>
@@ -45,6 +57,7 @@ const adminLoginCard = ({ authenticate }) => {
 						type="email"
 						onChange={handleChange}
 						name="email"
+						isInvalid={!validate.email}
 					/>
 					<div className={styles.passwordInputWrapper}>
 						<TextInputField
@@ -58,6 +71,7 @@ const adminLoginCard = ({ authenticate }) => {
 							width="100%"
 							type={shouldHidePassword ? "password" : "text"}
 							onChange={handleChange}
+							isInvalid={!validate.password}
 						/>
 						{shouldHidePassword ? (
 							<AiFillEyeInvisible
@@ -73,6 +87,19 @@ const adminLoginCard = ({ authenticate }) => {
 								className={styles.togglePasswordIcon}
 							/>
 						)}
+					</div>
+					<div className={styles.rememberMeContainer}>
+						<Checkbox
+							checked={formData.rememberMe}
+							label="Remember Me"
+							onChange={() =>
+								setFormData({
+									...formData,
+									rememberMe: !formData.rememberMe,
+								})
+							}
+							margin="16px"
+						/>
 					</div>
 				</div>
 				<div className={styles.adminCardButtonContainer}>
@@ -96,3 +123,13 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps, { authenticate })(adminLoginCard);
+
+const animateEntrance = () => {
+	gsap.from(`#${slidingContainerId}`, {
+		y: -400,
+		duration: 1,
+		scale: 0.3,
+		opacity: 0,
+		ease: "power3.inOut",
+	});
+};

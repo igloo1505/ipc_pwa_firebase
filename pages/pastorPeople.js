@@ -1,13 +1,20 @@
 import React from "react";
 import styles from "../styles/pastorPeople.module.scss";
 import AdminLoginCard from "../components/admin/adminLoginCard";
+import AdminAuthenticatedIndex from "../components/admin/AdminAuthenticatedIndex";
+import { connect } from "react-redux";
 
-const pastorPeople = () => {
+const pastorPeople = ({ access: { authenticated: isAuthenticated } }) => {
 	return (
 		<div className={styles.pastorPeopleMainContainer}>
-			<AdminLoginCard />
+			{isAuthenticated ? <AdminAuthenticatedIndex /> : <AdminLoginCard />}
 		</div>
 	);
 };
 
-export default pastorPeople;
+const mapStateToProps = (state, props) => ({
+	access: state.access,
+	props: props,
+});
+
+export default connect(mapStateToProps)(pastorPeople);

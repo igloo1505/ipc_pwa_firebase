@@ -19,9 +19,16 @@
 	grid-template-columns: 1fr;
 }
 
-// .adminCardInput {
-// 	// width: 100%;
-// }
+.adminCardInput {
+	// width: 100%;
+	::-ms-reveal {
+		// border: 1px solid transparent;
+		color: purple;
+		// border-radius: 50%;
+		// box-shadow: 0 3px 3px purple;
+		display: none !important;
+	}
+}
 
 .adminCardInner {
 	width: 100%;
@@ -50,6 +57,7 @@
 }
 
 .togglePasswordIcon {
+	font-size: 1.5rem;
 	&:hover {
 		cursor: pointer;
 	}
@@ -58,4 +66,23 @@
 .hidePasswordIcon {
 	color: $brandColor-500;
 	fill: $brandColor-500;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.adminCardInput::-ms-reveal {
+	display: none;
+}
+.adminCardInput::-ms-clear {
+	display: none;
+}
+
+.rememberMeContainer {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 0.25rem;
 }
