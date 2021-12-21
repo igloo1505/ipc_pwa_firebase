@@ -17,13 +17,14 @@ import {
 	SwatchesPicker,
 	TwitterPicker,
 } from "react-color";
-import { Dialog } from "evergreen-ui";
+import { Dialog, Checkbox, Switch } from "evergreen-ui";
 
 const defaultCurrentColor = "#c71f3a";
 const defaultCurrentTextColor = "#fff";
 
 const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 	const [visible, setVisible] = useState(false);
+	const [isEditingText, setIsEditingText] = useState(false);
 	const dispatch = useDispatch();
 	const [currentColorSettings, setCurrentColorSettings] = useState({
 		background: defaultCurrentColor,
@@ -60,6 +61,18 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 		});
 	};
 	const onChangeComplete = (e) => {};
+
+	const handleToggleTextEdit = (e) => {
+		let newValue = e.target.checked;
+		console.log("newValue: ", newValue);
+		setIsEditingText(!newValue);
+		if (newValue) {
+			setCurrentColorSettings({
+				...currentColorSettings,
+				text: defaultCurrentTextColor,
+			});
+		}
+	};
 
 	return (
 		<Dialog
@@ -100,22 +113,33 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 						/>
 					</div>
 				</div>
-				<div className={styles.colorPickerTileContainer}>
+				<div className={styles.colorPickerTileContainerText}>
 					<div className={styles.subtitleContainer}>Text Color</div>
-					<div className={styles.colorPickerTileContainerInner}>
-						<HuePicker
-							onChange={(e) => handleHueChange(e, "text")}
-							onChangeComplete={(e) => onChangeComplete(e, "text")}
-							color={currentColorSettings.text}
-							name="text"
+					<div className={styles.toggleEditTextContainer}>
+						<Switch
+							checked={!isEditingText}
+							label="Use Default Text"
+							onChange={handleToggleTextEdit}
+							id="useDefaultTextCheckbox"
 						/>
-						<AlphaPicker
-							onChange={(e) => handleAlphaChange(e, "text")}
-							onChangeComplete={(e) => onChangeComplete(e, "text")}
-							color={currentColorSettings.text}
-							name="text"
-						/>
+						<div className={styles.switchLabelText}>Use default text color</div>
 					</div>
+					{isEditingText && (
+						<div className={styles.colorPickerTileContainerInner}>
+							<HuePicker
+								onChange={(e) => handleHueChange(e, "text")}
+								onChangeComplete={(e) => onChangeComplete(e, "text")}
+								color={currentColorSettings.text}
+								name="text"
+							/>
+							<AlphaPicker
+								onChange={(e) => handleAlphaChange(e, "text")}
+								onChangeComplete={(e) => onChangeComplete(e, "text")}
+								color={currentColorSettings.text}
+								name="text"
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 		</Dialog>

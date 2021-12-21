@@ -35,4 +35,5 @@ export const handleAuth = (cookies, user) => {
 				.set("user", "", { httpOnly: true });
 		}
 	}
+	return auth;
 };

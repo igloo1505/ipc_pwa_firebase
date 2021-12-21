@@ -26,24 +26,23 @@ const UserSchema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		allowEmails: {
-			type: Boolean,
-			default: true,
-		},
 		profileImgUrl: {
 			type: String,
-		},
-		isAdmin: {
-			type: Boolean,
-			default: false,
-		},
-		allowGrantAccessToOthers: {
-			type: Boolean,
-			default: false,
 		},
 		notificationBetaGroup: {
 			type: Boolean,
 			default: false,
+		},
+		accessRights: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "AccessRights",
+			required: true,
+		},
+		userSettings: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "UserSettings",
+			required: true,
+			autopopulate: true,
 		},
 	},
 	{ timestamps: true }

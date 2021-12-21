@@ -5,6 +5,7 @@ import { connectDB } from "../../../utils/connectDB";
 import jwt from "jsonwebtoken";
 import Cookies from "cookies";
 import User from "../../../models/User";
+import UIMessage from "../../../models/local/UIMessage";
 import bcrypt from "bcryptjs";
 // import NextCors from "nextjs-cors";
 // import { handleRememberMe } from "../../../util/handleRememberMe";
@@ -21,13 +22,11 @@ handler.post(async (req, res) => {
 		let user = await User.findOne({ email });
 
 		if (!user) {
+			let uiMessage = new UIMessage("User not found", "error");
 			return res.json({
 				success: false,
 				message: "User not found.",
-				UIMessage: {
-					text: "User not found :(",
-					type: "error",
-				},
+				UIMessage: uiMessage,
 			});
 		}
 
@@ -36,10 +35,11 @@ handler.post(async (req, res) => {
 
 		let correctPassword = await user.comparePassword(password);
 		if (!correctPassword) {
+			let otherUiMessage = new UIMessage("Incorrect password", "error");
 			return res.statusCode(401).json({
 				success: false,
 				message: "Incorrect password.",
-				UIMessage: "Incorrect password.",
+				UIMessage: otherUiMessage,
 			});
 		}
 
@@ -52,7 +52,7 @@ handler.post(async (req, res) => {
 		return res.json({
 			success: true,
 			// message: "Authentication successful.",
-			// UIMessage: "You're in!",
+
 			user: user,
 		});
 	} catch (error) {

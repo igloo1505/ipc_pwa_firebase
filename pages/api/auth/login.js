@@ -5,6 +5,7 @@ import { connectDB } from "../../../utils/connectDB";
 import jwt from "jsonwebtoken";
 import Cookies from "cookies";
 import User from "../../../models/User";
+import UIMessage from "../../../models/local/UIMessage";
 import bcrypt from "bcryptjs";
 // import NextCors from "nextjs-cors";
 // import { handleRememberMe } from "../../../util/handleRememberMe";
@@ -36,10 +37,11 @@ handler.post(async (req, res) => {
 
 		let correctPassword = await user.comparePassword(password);
 		if (!correctPassword) {
+			let uiMessage = new UIMessage("Incorrect password", "error");
 			return res.statusCode(401).json({
 				success: false,
 				message: "Incorrect password.",
-				UIMessage: "Incorrect password.",
+				UIMessage: uiMessage,
 			});
 		}
 
@@ -48,11 +50,12 @@ handler.post(async (req, res) => {
 		// if (req.body.rememberMe) {
 		//     await handleRememberMe(user, req, cookies);
 		//   }
+		let otherUiMessage = new UIMessage("You're in!", "success");
 
 		return res.json({
 			success: true,
 			message: "Authentication successful.",
-			UIMessage: "You're in!",
+			UIMessage: otherUiMessage,
 			user: user,
 		});
 	} catch (error) {
