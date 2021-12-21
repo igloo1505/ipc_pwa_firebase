@@ -66,6 +66,10 @@ export const updateTileSettings = (tileSettings) => async (dispatch) => {
 			data: tileSettings,
 		});
 		console.log("res: ", res.data);
+		dispatch({
+			type: Types.UPDATE_TILE_COLOR_SETTINGS,
+			payload: res.data,
+		});
 	} catch (error) {
 		console.error(error);
 		dispatch({

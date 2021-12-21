@@ -40,59 +40,46 @@ handler.post(async (req, res) => {
 			});
 		}
 		console.log("User here nows".red, user);
-		let newColorSetting = new CustomColorSetting({
-			tileId: tileId,
-			colors: {
-				background: colorSettings.background,
-				text: colorSettings.text,
-			},
-		});
-		let savedSetting = await newColorSetting.save();
-		console.log("newColorSetting: ", newColorSetting);
+		// let newColorSetting = new CustomColorSetting({
+		// 	tileId: tileId,
+		// 	colors: {
+		// 		background: colorSettings.background,
+		// 		text: colorSettings.text,
+		// 	},
+		// });
+		// let savedSetting = await newColorSetting.save();
+		// console.log("newColorSetting: ", newColorSetting);
 
 		// TODO remove old mathing tileIds here
 		console.log(
 			"user.userSettings._id: ".blue,
 			user.userSettings._id.toString()
 		);
-		let previousSettings = await UserSettings.findById(
+		// let previousSettings = await UserSettings.findById(
+		// 	user.userSettings._id.toString()
+		// );
+		// // let tilesToRemove = previousSettings.customTileColors
+		// // 	.filter((ct) => ct.tileId === tileId)
+		// // 	.map((ct) => ct._id.toString());
+
+		let _userSetting = await UserSettings.findById(
 			user.userSettings._id.toString()
 		);
-		let tilesToRemove = previousSettings.customTileColors
-			.filter((ct) => ct.tileId === tileId)
-			.map((ct) => ct._id.toString());
-		console.log(
-			"previousSettings: ".bgMagenta,
-			// `${previousSettings.customTileColors.filter(ct => tileId)}`.bgMagenta
-			`${tilesToRemove}`.red,
-			tilesToRemove.length
-		);
-		let _userSetting = await UserSettings.findById(user.userSettings._id);
-		_userSetting.clearTileSetting(tileId);
-		console.log("_userSetting: ", _userSetting);
-		// let updatedUserSettingsFirst = await UserSettings.findByIdAndUpdate(
-		// 	user.userSettings._id.toString(),
-		// 	{
-		// 		$pullAll: { customTileColors: [...tilesToRemove] },
-		// 		// $push: { customTileColors: newColorSetting._id },
-		// 	},
-		// 	{ new: true }
-		// );
-		let updatedUserSettings = await UserSettings.findByIdAndUpdate(
-			user.userSettings._id.toString(),
-			{
-				// $pullAll: { customTileColors: [...tilesToRemove] },
-				$push: { customTileColors: newColorSetting._id },
-			},
-			{ new: true }
-		);
+		console.log("_userSetting: ".bgRed.black, _userSetting);
+		// await _userSetting.clearTileSetting(tileId);
+		let customTileColors = await _userSetting.replaceTileSetting({
+			tileId: tileId,
+			colorSettings: { ...colorSettings },
+		});
 
-		console.log("updatedUserSettings: ".bgRed, updatedUserSettings);
-		let uiMessage = new UIMessage("Color Updated!", "success");
+		let uiMessage = new UIMessage("Color Updated!", "colorUpdate", {
+			updatedColor: colorSettings,
+		});
 		return res.json({
 			success: true,
 			message: "Color updated",
 			UIMessage: uiMessage,
+			...(customTileColors && { customTileColors: customTileColors }),
 		});
 	} catch (error) {
 		res.status(500).json({ error: "There was an error changing that setting" });

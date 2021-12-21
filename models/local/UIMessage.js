@@ -1,7 +1,8 @@
 class UIMessage {
-	constructor(text, type) {
+	constructor(text, type, styleProps) {
 		this.text = text;
 		this.type = type;
+		this.additionalProps = styleProps;
 	}
 }
 
