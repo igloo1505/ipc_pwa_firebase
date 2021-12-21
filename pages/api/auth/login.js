@@ -5,6 +5,7 @@ import { connectDB } from "../../../utils/connectDB";
 import jwt from "jsonwebtoken";
 import Cookies from "cookies";
 import User from "../../../models/User";
+import UserSettings from "../../../models/UserSettings";
 import UIMessage from "../../../models/local/UIMessage";
 import bcrypt from "bcryptjs";
 // import NextCors from "nextjs-cors";
@@ -34,7 +35,6 @@ handler.post(async (req, res) => {
 
 		// TODO check valid token here
 		handleAuth(cookies, user);
-
 		let correctPassword = await user.comparePassword(password);
 		if (!correctPassword) {
 			let uiMessage = new UIMessage("Incorrect password", "error");
@@ -44,7 +44,7 @@ handler.post(async (req, res) => {
 				UIMessage: uiMessage,
 			});
 		}
-
+		let userSettings = await UserSettings.findById(user.userSettings._id);
 		handleCookies(cookies, user);
 
 		// if (req.body.rememberMe) {
@@ -57,6 +57,7 @@ handler.post(async (req, res) => {
 			message: "Authentication successful.",
 			UIMessage: otherUiMessage,
 			user: user,
+			userSettings: userSettings,
 		});
 	} catch (error) {
 		console.log(error);

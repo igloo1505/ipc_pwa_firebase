@@ -2,27 +2,20 @@ import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import styles from "../../../styles/ColorPicker.module.scss";
 import * as Types from "../../../state/TYPES";
-import {
-	AlphaPicker,
-	BlockPicker,
-	ChromePicker,
-	CirclePicker,
-	CompactPicker,
-	GithubPicker,
-	HuePicker,
-	MaterialPicker,
-	PhotoshopPicker,
-	SketchPicker,
-	SliderPicker,
-	SwatchesPicker,
-	TwitterPicker,
-} from "react-color";
+import { AlphaPicker, HuePicker } from "react-color";
 import { Dialog, Checkbox, Switch } from "evergreen-ui";
+import { updateTileSettings } from "../../../actions/userActions";
 
 const defaultCurrentColor = "#c71f3a";
 const defaultCurrentTextColor = "#fff";
 
-const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
+const ColorPicker = ({
+	UI: {
+		colorSelect: { shouldShow, tileId, currentColor },
+	},
+	access: { user: userInState },
+	updateTileSettings,
+}) => {
 	const [visible, setVisible] = useState(false);
 	const [isEditingText, setIsEditingText] = useState(false);
 	const dispatch = useDispatch();
@@ -32,6 +25,7 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 	});
 	useEffect(() => {
 		setVisible(shouldShow);
+
 		// if (currentColor) {
 		// 	setTitleBackgroundColor({currentColor});
 		// }
@@ -60,7 +54,26 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 			[_name]: `rgba(${e.rgb.r}, ${e.rgb.g}, ${e.rgb.b}, ${e.rgb.a})`,
 		});
 	};
-	const onChangeComplete = (e) => {};
+	const onChangeComplete = (e) => {
+		console.log("Sending that *$&#* now");
+		if (!userInState._id) {
+			return;
+		}
+		let newTileSettings = {};
+
+		//  = userInState._id
+
+		// tileId, colorSettings: {Text, background}
+		console.log("tileId: ", tileId);
+		updateTileSettings({
+			userId: userInState._id,
+			tileId: tileId,
+			colorSettings: {
+				background: currentColorSettings.background,
+				text: currentColorSettings.text,
+			},
+		});
+	};
 
 	const handleToggleTextEdit = (e) => {
 		let newValue = e.target.checked;
@@ -76,7 +89,7 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 
 	return (
 		<Dialog
-			isShown={true}
+			isShown={visible}
 			onCloseComplete={() => closeColorSelect(false)}
 			preventBodyScrolling
 			confirmLabel="Change"
@@ -149,6 +162,7 @@ const ColorPicker = ({ UI: { shouldShow, tileId, currentColor } }) => {
 const mapStateToProps = (state, props) => ({
 	props: props,
 	UI: state.UI,
+	access: state.access,
 });
 
-export default connect(mapStateToProps)(ColorPicker);
+export default connect(mapStateToProps, { updateTileSettings })(ColorPicker);

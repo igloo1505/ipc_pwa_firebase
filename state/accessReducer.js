@@ -14,7 +14,7 @@ const accessReducer = createReducer(initialState, (builder) => {
 		return {
 			...state,
 			authenticated: true,
-			// user: action.payload.user,
+			user: action.payload.user,
 			error: null,
 		};
 	});

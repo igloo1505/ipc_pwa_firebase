@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const UserSettings = require("./UserSettings");
+const AccessRights = require("./AccessRights");
+const CustomColorSetting = require("./CustomColorSetting");
 
 const UserSchema = mongoose.Schema(
 	{

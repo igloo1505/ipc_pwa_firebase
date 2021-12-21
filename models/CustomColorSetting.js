@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const CustomTileColorSchema = mongoose.Schema(
+const CustomColorSettingSchema = mongoose.Schema(
 	{
 		colors: {
 			background: {
@@ -21,8 +21,8 @@ const CustomTileColorSchema = mongoose.Schema(
 	{ timestamps: true }
 );
 
-CustomTileColorSchema.plugin(require("mongoose-autopopulate"));
+CustomColorSettingSchema.plugin(require("mongoose-autopopulate"));
 
 module.exports =
-	mongoose.models?.CustomTileColor ||
-	mongoose.model("CustomTileColor", CustomTileColorSchema);
+	mongoose.models?.CustomColorSetting ||
+	mongoose.model("CustomColorSetting", CustomColorSettingSchema);

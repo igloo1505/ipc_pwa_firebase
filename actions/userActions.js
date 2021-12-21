@@ -23,7 +23,7 @@ export const authenticate = (user) => async (dispatch) => {
 			});
 		}
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		dispatch({
 			type: Types.SERVER_ERROR,
 			payload: error,
@@ -56,4 +56,21 @@ export const handleLogout = (userData) => async (dispatch) => {
 	// 		payload: error,
 	// 	});
 	// }
+};
+
+export const updateTileSettings = (tileSettings) => async (dispatch) => {
+	try {
+		const res = await useAxios({
+			method: "post",
+			url: "/api/settings/setNewTileColor",
+			data: tileSettings,
+		});
+		console.log("res: ", res.data);
+	} catch (error) {
+		console.error(error);
+		dispatch({
+			type: Types.SERVER_ERROR,
+			payload: error,
+		});
+	}
 };
