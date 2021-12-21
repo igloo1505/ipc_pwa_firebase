@@ -22,13 +22,9 @@ const settingReducer = createReducer(initialState, (builder) => {
 	});
 	builder.addCase(Types.UPDATE_TILE_COLOR_SETTINGS, (state, action) => {
 		console.log("action: ", action.payload);
-		let newTileColors = state.customTileColors.filter((t) =>
-			action.payload.customTileColors.map((_t) => _t._id).includes(t._id)
-		);
-		console.log("newTileColors: ", newTileColors);
 		return {
 			...state,
-			customTileColors: newTileColors,
+			customTileColors: action.payload?.customTileColors,
 			error: null,
 		};
 	});

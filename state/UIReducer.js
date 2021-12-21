@@ -17,8 +17,25 @@ const initialState = {
 		tileId: null,
 		currentColor: null,
 	},
+	notifications: {
+		toast: {
+			shouldShow: false,
+			message: null,
+			description: null,
+			variant: null,
+			timeout: 0,
+			additionalProps: {},
+		},
+	},
 };
 
+const setNewToastState = (oldState, actionToast) => {
+	return {
+		...oldState.notifications.toast,
+		...actionToast,
+		timeout: actionToast.timeout || 3000,
+	};
+};
 const getCloseDrawerState = (oldState) => {
 	return {
 		...oldState,
@@ -80,6 +97,50 @@ const modalReducer = createReducer(initialState, (builder) => {
 				shouldShow: false,
 				tileId: null,
 				currentColor: null,
+			},
+		};
+	});
+	builder.addCase(Types.SHOW_TOAST_NOTIFICATION, (state, action) => {
+		return {
+			...state,
+			notifications: {
+				...state.notifications,
+				toast: {
+					...state.notifications.toast,
+					shouldShow: true,
+					message: action.payload?.message,
+					description: action.payload?.description,
+					variant: action.payload?.variant,
+					timeout: action.payload?.timeout ?? 3000,
+				},
+			},
+		};
+	});
+	builder.addCase(Types.CANCEL_TOAST_NOTIFICATION, (state, action) => {
+		return {
+			...state,
+			notifications: {
+				...state.notifications,
+				toast: {
+					...initialState.notifications.toast,
+				},
+			},
+		};
+	});
+	builder.addCase(Types.UPDATE_TILE_COLOR_SETTINGS, (state, action) => {
+		let newToastData = {
+			shouldShow: true,
+			message: action.payload?.UIMessage?.text,
+			variant: action.payload?.UIMessage?.type,
+			additionalProps: {
+				...action?.payload?.UIMessage?.additionalProps?.updatedColor,
+			},
+		};
+		return {
+			...state,
+			notifications: {
+				...state.notifications,
+				toast: setNewToastState(state, newToastData),
 			},
 		};
 	});

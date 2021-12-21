@@ -31,6 +31,13 @@ const AdminPanelLargeTile = ({
 				if (_m.textColor) {
 					ns.textColor = _m.textColor;
 				}
+				if (_m?.colors?.background) {
+					ns.backgroundColor = _m.colors.background;
+				}
+				if (_m?.colors?.text) {
+					ns.textColor = _m.colors.text;
+				}
+				console.log("ns: ", ns);
 				setCustomStyles(ns);
 			}
 		}
@@ -42,14 +49,16 @@ const AdminPanelLargeTile = ({
 			type: Types.SET_COLOR_SELECT_OPTIONS,
 			payload: {
 				tileId: tile.id,
-				currentColor: customStyles.backgroundColor,
+				currentColor: customStyles,
 			},
 		});
 	};
 	return (
 		<div
 			className={clsx(styles.tileOuterContainer, gsapClassName)}
-			style={customStyles}
+			style={{
+				backgroundColor: customStyles.backgroundColor,
+			}}
 		>
 			<AiFillInfoCircle
 				className={styles.tileTextIcon}
@@ -58,7 +67,14 @@ const AdminPanelLargeTile = ({
 				onClick={handleColorSelect}
 				id={iconId}
 			/>
-			<div className={styles.tileText}>{tile.title}</div>
+			<div
+				className={styles.tileText}
+				style={{
+					color: customStyles.textColor,
+				}}
+			>
+				{tile.title}
+			</div>
 		</div>
 	);
 };

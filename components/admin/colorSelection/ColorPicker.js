@@ -16,23 +16,26 @@ const ColorPicker = ({
 	access: { user: userInState },
 	updateTileSettings,
 }) => {
+	console.log("updateTileSettings: ", currentColor);
 	const [visible, setVisible] = useState(false);
 	const [isEditingText, setIsEditingText] = useState(false);
 	const dispatch = useDispatch();
 	const [currentColorSettings, setCurrentColorSettings] = useState({
-		background: defaultCurrentColor,
-		text: defaultCurrentTextColor,
+		backgroundColor: defaultCurrentColor,
+		textColor: defaultCurrentTextColor,
 	});
 	useEffect(() => {
 		setVisible(shouldShow);
-
-		// if (currentColor) {
-		// 	setTitleBackgroundColor({currentColor});
-		// }
-		// if (!currentColor) {
-		// 	setTitleBackgroundColor(defaultCurrentColor);
-		// }
+		if (currentColor.textColor) {
+			setIsEditingText(true);
+		}
 	}, [shouldShow]);
+	useEffect(() => {
+		setCurrentColorSettings({
+			backgroundColor: currentColor.backgroundColor,
+			textColor: currentColor.textColor,
+		});
+	}, [currentColor]);
 
 	const closeColorSelect = () => {
 		dispatch({
@@ -59,30 +62,25 @@ const ColorPicker = ({
 		if (!userInState._id) {
 			return;
 		}
-		let newTileSettings = {};
-
-		//  = userInState._id
-
-		// tileId, colorSettings: {Text, background}
 		console.log("tileId: ", tileId);
 		updateTileSettings({
 			userId: userInState._id,
 			tileId: tileId,
 			colorSettings: {
-				background: currentColorSettings.background,
-				text: currentColorSettings.text,
+				background: currentColorSettings.backgroundColor,
+				text: currentColorSettings.textColor,
 			},
 		});
 	};
 
 	const handleToggleTextEdit = (e) => {
-		let newValue = e.target.checked;
-		console.log("newValue: ", newValue);
-		setIsEditingText(!newValue);
-		if (newValue) {
+		let newCheckedValue = e.target.checked;
+		console.log("newCheckedValue: ", newCheckedValue);
+		setIsEditingText(!newCheckedValue);
+		if (newCheckedValue) {
 			setCurrentColorSettings({
 				...currentColorSettings,
-				text: defaultCurrentTextColor,
+				textColor: currentColor.textColor ?? defaultCurrentTextColor,
 			});
 		}
 	};
@@ -99,11 +97,11 @@ const ColorPicker = ({
 		>
 			<div
 				className={styles.dialogTitle}
-				style={{ backgroundColor: currentColorSettings.background }}
+				style={{ backgroundColor: currentColorSettings.backgroundColor }}
 			>
 				<div
 					className={styles.dialogTitleText}
-					style={{ color: currentColorSettings.text }}
+					style={{ color: currentColorSettings.textColor }}
 				>
 					Set a custom color:
 				</div>
@@ -113,16 +111,16 @@ const ColorPicker = ({
 					<div className={styles.subtitleContainer}>Button Color</div>
 					<div className={styles.colorPickerTileContainerInner}>
 						<HuePicker
-							onChange={(e) => handleHueChange(e, "background")}
-							onChangeComplete={(e) => onChangeComplete(e, "background")}
-							color={currentColorSettings.background}
-							name="background"
+							onChange={(e) => handleHueChange(e, "backgroundColor")}
+							onChangeComplete={(e) => onChangeComplete(e, "backgroundColor")}
+							color={currentColorSettings.backgroundColor}
+							name="backgroundColor"
 						/>
 						<AlphaPicker
-							onChange={(e) => handleAlphaChange(e, "background")}
-							onChangeComplete={(e) => onChangeComplete(e, "background")}
-							color={currentColorSettings.background}
-							name="background"
+							onChange={(e) => handleAlphaChange(e, "backgroundColor")}
+							onChangeComplete={(e) => onChangeComplete(e, "backgroundColor")}
+							color={currentColorSettings.backgroundColor}
+							name="backgroundColor"
 						/>
 					</div>
 				</div>
@@ -140,16 +138,16 @@ const ColorPicker = ({
 					{isEditingText && (
 						<div className={styles.colorPickerTileContainerInner}>
 							<HuePicker
-								onChange={(e) => handleHueChange(e, "text")}
-								onChangeComplete={(e) => onChangeComplete(e, "text")}
-								color={currentColorSettings.text}
-								name="text"
+								onChange={(e) => handleHueChange(e, "textColor")}
+								onChangeComplete={(e) => onChangeComplete(e, "textColor")}
+								color={currentColorSettings?.textColor}
+								name="textColor"
 							/>
 							<AlphaPicker
-								onChange={(e) => handleAlphaChange(e, "text")}
-								onChangeComplete={(e) => onChangeComplete(e, "text")}
-								color={currentColorSettings.text}
-								name="text"
+								onChange={(e) => handleAlphaChange(e, "textColor")}
+								onChangeComplete={(e) => onChangeComplete(e, "textColor")}
+								color={currentColorSettings?.textColor}
+								name="textColor"
 							/>
 						</div>
 					)}
