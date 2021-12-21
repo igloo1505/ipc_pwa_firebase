@@ -58,7 +58,7 @@ const Drawer = ({
 				<div className={styles.sidebarTopIconOffset}></div>
 			</div>
 			<div className={styles.sidebarLinkSection}>
-				<div clasName={styles.sidebarLinkSectionInner}>
+				<div className={styles.sidebarLinkSectionInner}>
 					{settings.navLinks.map((linkData, index) => {
 						return (
 							<Sidebar_Link key={`sidebar-link-${index}`} linkData={linkData} />

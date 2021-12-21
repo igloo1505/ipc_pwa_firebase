@@ -12,6 +12,11 @@ const initialState = {
 		width: null,
 		height: null,
 	},
+	colorSelect: {
+		shouldShow: false,
+		tileId: null,
+		currentColor: null,
+	},
 };
 
 const getCloseDrawerState = (oldState) => {
@@ -55,6 +60,26 @@ const modalReducer = createReducer(initialState, (builder) => {
 				...state.viewport,
 				width: action.payload?.width ?? state.viewport.width,
 				height: action.payload?.height ?? state.viewport.height,
+			},
+		};
+	});
+	builder.addCase(Types.SET_COLOR_SELECT_OPTIONS, (state, action) => {
+		return {
+			...state,
+			colorSelect: {
+				shouldShow: true,
+				tileId: action.payload?.tileId,
+				currentColor: action.payload?.currentColor ?? "#e03854",
+			},
+		};
+	});
+	builder.addCase(Types.CLOSE_COLOR_SELECT, (state, action) => {
+		return {
+			...state,
+			colorSelect: {
+				shouldShow: false,
+				tileId: null,
+				currentColor: null,
 			},
 		};
 	});

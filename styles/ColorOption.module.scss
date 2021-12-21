@@ -1,0 +1,29 @@
+$common-border-radius: 8px;
+
+.colorOptionOuter {
+	transition: all 0.2s ease-in-out;
+	border-radius: $common-border-radius;
+}
+.colorOptionInner {
+	transition: all 0.2s ease-in-out;
+	border-radius: $common-border-radius;
+}
+
+.colorOptionImage {
+	border-radius: $common-border-radius;
+	z-index: 999;
+
+	// temporary
+	visibility: hidden;
+	width: 100%;
+	height: auto;
+}
+
+.colorOptionCanvas {
+	width: 100%;
+	height: 500px;
+	object-fit: scale-down;
+	border-radius: $common-border-radius;
+	// Try super squirely approach here:
+	display: none;
+}

@@ -21,6 +21,7 @@ const AdminAuthenticatedIndex_mobile = () => {
 								tile={tile}
 								key={`admin-tile-panel-${index}`}
 								gsapClassName={staggeredEntranceClassName}
+								tileIndex={index}
 							/>
 						);
 					})}

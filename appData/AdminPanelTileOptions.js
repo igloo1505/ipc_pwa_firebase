@@ -2,9 +2,11 @@
 
 const adminTileOptions = [
 	{
+		id: "addNewAdministrator",
 		title: "Add new administrator",
 	},
 	{
+		id: "addNewCarouselEvent",
 		title: "Create new carousel event",
 	},
 ];
