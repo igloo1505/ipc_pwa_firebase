@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import store from "../state/store";
 import * as Types from "../state/TYPES";
 import ColorPicker from "../components/admin/colorSelection/ColorPicker";
+import Toast from "../components/interactions/Toast";
 
 // import AdminPanelLargeTile from "../components/admin/AdminPanelLargeTile";
 // Bad idea and hugeeeee waste of time... maybe come back to it when I'm bored.
@@ -47,6 +48,7 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<Provider store={store}>
 			<div id="client-only-portal-target" />
+			<Toast />
 			<Navbar />
 			{shouldShowColorPicker && <ColorPicker />}
 			<Drawer />

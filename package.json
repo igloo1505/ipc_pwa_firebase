@@ -24,6 +24,7 @@
 		"gsap": "^3.9.0",
 		"hamburger-react": "^2.4.1",
 		"jsonwebtoken": "^8.5.1",
+		"material-ui-colors": "^1.0.0",
 		"mongodb": "^4.2.2",
 		"mongoose": "^6.1.2",
 		"mongoose-autopopulate": "^0.16.0",

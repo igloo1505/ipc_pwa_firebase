@@ -1,0 +1,66 @@
+@import "variables";
+
+$shared-border-radius: 8px;
+
+.mainDiv {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	min-width: 80vw;
+	left: 50%;
+	top: 0.5rem;
+	transform: translateX(-50%);
+	z-index: 99999;
+
+	// Temporary:
+	background-color: $brandColor-200;
+	border: 1px solid $brandColor-600;
+	border-radius: $shared-border-radius;
+}
+.innerDiv {
+	padding: 0.5rem;
+	border-radius: $shared-border-radius;
+}
+.titleDiv {
+	font-weight: 600;
+	color: #fff;
+	color: $brandColor-800;
+	font-size: 0.9rem;
+}
+.bodyDiv {
+	// padding: 0 0.5rem 0.5rem 0.5rem;
+	color: #00000099;
+	font-weight: 100;
+	font-size: 0.7rem;
+	// color: $brandColor-700;
+}
+
+.icon {
+	margin-right: 0.5rem;
+	width: 1.2rem;
+	height: auto;
+	color: $brandColor-600;
+}
+
+.iconContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	& svg {
+		width: 1.2rem;
+		height: auto;
+		margin: 0.5rem 0 0.5rem 0.5rem;
+		color: $brandColor-600;
+	}
+}
+
+.leftWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	// gap: 0.5rem;
+}

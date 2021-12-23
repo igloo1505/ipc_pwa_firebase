@@ -18,26 +18,19 @@ const CarouselEvent = mongoose.Schema(
 			title: {
 				type: String,
 				required: false,
+				max: 40,
 			},
 			subTitle: {
 				type: String,
 				required: false,
+				max: 40,
 			},
 			description: {
 				type: String,
 				required: false,
+				max: 200,
 			},
 			showSignature: {
-				type: Boolean,
-				default: false,
-			},
-		},
-		accessRights: {
-			isStaff: {
-				type: Boolean,
-				default: false,
-			},
-			isAdmin: {
 				type: Boolean,
 				default: false,
 			},

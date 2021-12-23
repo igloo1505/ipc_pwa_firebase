@@ -5,9 +5,11 @@ import * as Types from "../../../state/TYPES";
 import { AlphaPicker, HuePicker } from "react-color";
 import { Dialog, Checkbox, Switch } from "evergreen-ui";
 import { updateTileSettings } from "../../../actions/userActions";
+import gsap from "gsap";
 
 const defaultCurrentColor = "#c71f3a";
 const defaultCurrentTextColor = "#fff";
+const containerId = "color-picker-container";
 
 const ColorPicker = ({
 	UI: {
@@ -26,21 +28,28 @@ const ColorPicker = ({
 	});
 	useEffect(() => {
 		setVisible(shouldShow);
-		if (currentColor.textColor) {
+		if (currentColor?.textColor) {
 			setIsEditingText(true);
 		}
 	}, [shouldShow]);
+
 	useEffect(() => {
 		setCurrentColorSettings({
-			backgroundColor: currentColor.backgroundColor,
-			textColor: currentColor.textColor,
+			backgroundColor: currentColor?.backgroundColor,
+			textColor: currentColor?.textColor,
 		});
 	}, [currentColor]);
 
 	const closeColorSelect = () => {
-		dispatch({
-			type: Types.CLOSE_COLOR_SELECT,
-		});
+		// animateExit(cb);
+		setVisible(false);
+		setTimeout(
+			() =>
+				dispatch({
+					type: Types.CLOSE_COLOR_SELECT,
+				}),
+			500
+		);
 	};
 
 	const handleHueChange = (e, _name) => {
@@ -57,12 +66,8 @@ const ColorPicker = ({
 			[_name]: `rgba(${e.rgb.r}, ${e.rgb.g}, ${e.rgb.b}, ${e.rgb.a})`,
 		});
 	};
-	const onChangeComplete = (e) => {
-		console.log("Sending that *$&#* now");
-		if (!userInState._id) {
-			return;
-		}
-		console.log("tileId: ", tileId);
+
+	const saveColorSetting = () =>
 		updateTileSettings({
 			userId: userInState._id,
 			tileId: tileId,
@@ -71,6 +76,13 @@ const ColorPicker = ({
 				text: currentColorSettings.textColor,
 			},
 		});
+
+	const onChangeComplete = (e) => {
+		console.log("Sending that *$&#* now");
+		if (!userInState._id) {
+			return;
+		}
+		console.log("tileId: ", tileId);
 	};
 
 	const handleToggleTextEdit = (e) => {
@@ -80,9 +92,14 @@ const ColorPicker = ({
 		if (newCheckedValue) {
 			setCurrentColorSettings({
 				...currentColorSettings,
-				textColor: currentColor.textColor ?? defaultCurrentTextColor,
+				textColor: currentColor?.textColor ?? defaultCurrentTextColor,
 			});
 		}
+	};
+
+	const handleFormConfirm = (e) => {
+		saveColorSetting();
+		closeColorSelect();
 	};
 
 	return (
@@ -94,6 +111,11 @@ const ColorPicker = ({
 			hasHeader={false}
 			padding="0"
 			contentContainerProps={{ padding: "0" }}
+			onConfirm={handleFormConfirm}
+			containerProps={{
+				id: containerId,
+				// margin: "50%",
+			}}
 		>
 			<div
 				className={styles.dialogTitle}
@@ -164,3 +186,15 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps, { updateTileSettings })(ColorPicker);
+
+const animateExit = () => {
+	console.log("Closing animation here");
+	// let emTop = document.getElementById(containerId).style.marginTop;
+	console.log("emTop: ", emTop);
+	gsap.to(`#${containerId}`, {
+		duration: 0.3,
+		y: -100,
+		opacity: 0,
+		ease: "bounce.out",
+	});
+};

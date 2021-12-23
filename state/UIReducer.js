@@ -22,7 +22,7 @@ const initialState = {
 			shouldShow: false,
 			message: null,
 			description: null,
-			variant: null,
+			variant: "danger",
 			timeout: 0,
 			additionalProps: {},
 		},
