@@ -4,7 +4,7 @@ import styles from "../../../styles/ColorPicker.module.scss";
 import * as Types from "../../../state/TYPES";
 import { AlphaPicker, HuePicker } from "react-color";
 import { Dialog, Checkbox, Switch } from "evergreen-ui";
-import { updateTileSettings } from "../../../actions/userActions";
+import { updateTileSettings } from "../../../state/actions/userActions";
 import gsap from "gsap";
 
 const defaultCurrentColor = "#c71f3a";

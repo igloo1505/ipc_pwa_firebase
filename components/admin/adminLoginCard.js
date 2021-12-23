@@ -5,7 +5,7 @@ import AdminLoginCardBanner from "./adminLoginCardBanner";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import clsx from "clsx";
-import { authenticate } from "../../actions/userActions";
+import { authenticate } from "../../state/actions/userActions";
 import { connect } from "react-redux";
 import gsap from "gsap";
 

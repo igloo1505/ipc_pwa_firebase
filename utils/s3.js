@@ -18,12 +18,7 @@ const s3 = new S3({
 // POST RECIPE
 export const uploadImage = (file, fileName) => {
 	console.log("file: ".bgRed.black, file, fileName);
-	console.log(
-		"region, accessKeyId, secretAccessKey,: ",
-		region,
-		accessKeyId,
-		secretAccessKey
-	);
+
 	const fileStream = fs.createReadStream(file.path);
 
 	const uploadParams = {

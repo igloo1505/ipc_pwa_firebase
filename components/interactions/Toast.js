@@ -12,6 +12,7 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { GiInfo } from "react-icons/gi";
 import { FaUserFriends } from "react-icons/fa";
 import { IoIosColorPalette } from "react-icons/io";
+import store from "../../state/store";
 
 let VariantHasIcon = {
 	danger: MdDangerous,
@@ -24,6 +25,21 @@ let VariantHasIcon = {
 };
 
 let iconContainerId = "icon-container-notificationt-toast";
+
+const temporaryDispatchFakeToast = () => {
+	store.dispatch({
+		type: Types.SHOW_TOAST_NOTIFICATION,
+		payload: {
+			shouldShow: true,
+			message: "Test title right here",
+			description:
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			variant: "danger",
+			timeout: 3000,
+			additionalProps: {},
+		},
+	});
+};
 
 const setIconColor = () => {
 	if (typeof window === "undefined") return;
@@ -121,6 +137,22 @@ const Toast = ({
 }) => {
 	const dispatch = useDispatch();
 	const [Icon, setIcon] = useState(null);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			document.addEventListener("keyup", (e) => {
+				if (e.code === "Space") {
+					temporaryDispatchFakeToast();
+				}
+			});
+		}
+	}, []);
+
+	const springStyles = useSpring({
+		opacity: shouldShow ? 1 : 0,
+		transform: shouldShow ? "translate(-50%, 0)" : "translate(-50%, -100%)",
+		config: config.stiff,
+	});
 	const [variantState, setVariantState] = useState({
 		mainDiv: {},
 		innerDiv: {},
@@ -138,12 +170,9 @@ const Toast = ({
 		if (!VariantHasIcon[variant]) {
 			setIcon(null);
 		}
+		if (shouldShow) {
+		}
 	}, [shouldShow, message, description, variant, timeout, additionalProps]);
-
-	const [spring, api] = useSpring(() => ({
-		opacity: 1,
-		config: config.stiff,
-	}));
 
 	const closeToast = () => {
 		dispatch({
@@ -151,15 +180,18 @@ const Toast = ({
 		});
 	};
 
+	console.log("Spring", springStyles);
+
 	return (
-		<div
+		<web.div
 			className={clsx(
 				styles.mainDiv,
 				shouldShow
 					? styles.toast_main_container
 					: styles.toast_main_container_hidden
 			)}
-			style={variantState.mainDiv}
+			style={springStyles}
+			// style={variantState.mainDiv}
 		>
 			<div className={styles.leftWrapper}>
 				{Icon && (
@@ -171,21 +203,20 @@ const Toast = ({
 						{(() => {
 							let IconN = VariantHasIcon[Icon];
 							console.log("Icon: ", Icon);
-							return <IconN className={styles.icon} />;
+							return <IconN className={styles.icon} onClick={closeToast} />;
 						})()}
 					</div>
 				)}
 			</div>
 			<div style={variantState.innerDiv} className={styles.innerDiv}>
 				<div style={variantState.titleDiv} className={styles.titleDiv}>
-					Test title right here
+					{message}
 				</div>
 				<div style={variantState.bodyDiv} className={styles.bodyDiv}>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod
-					eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					{description}
 				</div>
 			</div>
-		</div>
+		</web.div>
 	);
 };
 

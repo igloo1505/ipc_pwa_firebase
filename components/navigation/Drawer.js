@@ -6,7 +6,7 @@ import gsap from "gsap";
 import Sidebar_Link from "./Sidebar_Link";
 import settings from "../../appData/appWideSettings";
 import { Button } from "evergreen-ui";
-import { handleLogout } from "../../actions/userActions";
+import { handleLogout } from "../../state/actions/userActions";
 import * as Types from "../../state/TYPES";
 const drawerContainerId = "drawer-container";
 

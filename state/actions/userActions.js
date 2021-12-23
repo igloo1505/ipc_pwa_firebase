@@ -1,5 +1,5 @@
-import useAxios from "../utils/useAxios";
-import * as Types from "../state/TYPES";
+import useAxios from "../../utils/useAxios";
+import * as Types from "../TYPES";
 
 export const authenticate = (user) => async (dispatch) => {
 	try {

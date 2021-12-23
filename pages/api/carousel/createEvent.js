@@ -19,8 +19,6 @@ const upload = multer({
 	}),
 });
 
-// TODO add auth middleware back in to all protected routes
-// TODO add check for cookies and adapt to 'remember me' state stored in cookies, and sign jwt in cookies as well.
 const handler = nc();
 const uploadMiddleware = upload.single("carouselImage");
 

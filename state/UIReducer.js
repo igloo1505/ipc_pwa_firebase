@@ -1,6 +1,7 @@
 import * as Types from "./TYPES";
 import store from "./store";
 import { createReducer } from "@reduxjs/toolkit";
+import { resetToastState } from "./actions/Actions_UI";
 
 const initialState = {
 	navigation: {
@@ -117,12 +118,14 @@ const modalReducer = createReducer(initialState, (builder) => {
 		};
 	});
 	builder.addCase(Types.CANCEL_TOAST_NOTIFICATION, (state, action) => {
+		resetToastState();
 		return {
 			...state,
 			notifications: {
 				...state.notifications,
 				toast: {
-					...initialState.notifications.toast,
+					...state.notifications.toast,
+					shouldShow: false,
 				},
 			},
 		};
