@@ -5,9 +5,18 @@ import { connect, useDispatch } from "react-redux";
 import { a as web } from "@react-spring/web";
 import { config, useSpring } from "@react-spring/core";
 import * as Types from "../../state/TYPES";
-import { red, blue, yellow, green } from "material-ui-colors";
+import { getHSL } from "../../utils/getHSLcolor";
+import {
+	red,
+	blue,
+	purple,
+	yellow,
+	amber,
+	orange,
+	green,
+} from "material-ui-colors";
 import clsx from "clsx";
-import { MdDangerous, MdWarning } from "react-icons/md";
+import { MdDangerous, MdWarning, MdOutlineClose } from "react-icons/md";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { GiInfo } from "react-icons/gi";
 import { FaUserFriends } from "react-icons/fa";
@@ -33,8 +42,8 @@ const temporaryDispatchFakeToast = () => {
 			shouldShow: true,
 			message: "Test title right here",
 			description:
-				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed dod eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-			variant: "danger",
+				"adipiscing elits, sed dod eiusmod tempor incididunt ut labore et dolore magna aliqua. Test with exactly 141 characters just out of principle.",
+			variant: "social",
 			timeout: 3000,
 			additionalProps: {},
 		},
@@ -44,74 +53,108 @@ const temporaryDispatchFakeToast = () => {
 const setIconColor = () => {
 	if (typeof window === "undefined") return;
 	let em = document.getElementById(iconContainerId).childNodes[0];
-	console.log("em: ", em);
 };
 
-const handleVariantState = (_variant) => {
-	console.log("_variant: ", _variant);
+const handleVariantState = (_variant, additionalProps) => {
+	console.log("_variant, additionalProps: ", _variant, additionalProps);
 	switch (_variant) {
 		case "success":
 			return {
-				mainDiv: {},
-				innerDiv: {},
-				titleDiv: {},
-				bodyDiv: {},
+				mainDiv: {
+					border: `1px solid ${green[500]}`,
+					backgroundColor: green[100],
+				},
+				titleDiv: {
+					color: green[800],
+				},
+				iconSvg: {
+					color: green[800],
+				},
 			};
 
 		case "warning":
 			return {
-				mainDiv: {},
-				innerDiv: {},
-				titleDiv: {},
-				bodyDiv: {},
-				iconContainer: {},
+				mainDiv: {
+					border: `1px solid ${yellow[500]}`,
+					backgroundColor: yellow[100],
+				},
+				titleDiv: {
+					color: yellow[800],
+				},
+				iconSvg: {
+					color: yellow[800],
+				},
 			};
 
 		case "info":
 			return {
-				mainDiv: {},
-				innerDiv: {},
-				titleDiv: {},
-				bodyDiv: {},
-				iconContainer: {},
+				mainDiv: {
+					border: `1px solid ${blue[500]}`,
+					backgroundColor: blue[100],
+				},
+				titleDiv: {
+					color: blue[800],
+				},
+				iconSvg: {
+					color: blue[800],
+				},
 			};
 
 		case "social":
 			return {
-				mainDiv: {},
-				innerDiv: {},
-				titleDiv: {},
-				bodyDiv: {},
-				iconContainer: {},
+				mainDiv: {
+					border: `1px solid ${blue[500]}`,
+					backgroundColor: "#1b438a",
+				},
+				titleDiv: {
+					// color: blue[800],
+					color: "#fff",
+				},
+				bodyDiv: {
+					color: "#fffc",
+				},
+				iconSvg: {
+					color: "#f04235",
+				},
 			};
 
 		case "danger":
 			return {
 				mainDiv: {
-					border: `2px solid ${red[500]}`,
+					border: `1px solid ${red[500]}`,
 					backgroundColor: red[100],
 				},
 				titleDiv: {
 					color: red[800],
 				},
-				bodyDiv: {
-					// color: red[700],
-				},
-				iconContainer: {
-					"& > svg": {
-						// color: red[800],
-						color: green[800],
-					},
+				iconSvg: {
+					color: red[800],
 				},
 			};
 
 		case "colorUpdate":
+			let bgHSL = getHSL(additionalProps.background);
+			let textHSL = getHSL(additionalProps.text);
+			console.log("bgHSL: ", bgHSL, textHSL);
 			return {
-				mainDiv: {},
-				innerDiv: {},
-				titleDiv: {},
-				bodyDiv: {},
-				iconContainer: {},
+				mainDiv: {
+					border: `1px solid hsl(${bgHSL.css[0] - 30}deg, ${bgHSL.css[1]}%, ${
+						bgHSL.css[2]
+					}%)`,
+					backgroundColor: additionalProps.background,
+				},
+				titleDiv: {
+					color: additionalProps.text,
+				},
+				bodyDiv: {
+					color: additionalProps.text,
+				},
+				iconSvg: {
+					color: additionalProps.text,
+				},
+				closeIcon: {
+					color: additionalProps.text,
+				},
 			};
 
 		default:
@@ -131,7 +174,7 @@ const Toast = ({
 		message,
 		description,
 		variant,
-		timeout,
+		timeout = 3000,
 		additionalProps,
 	},
 }) => {
@@ -158,19 +201,22 @@ const Toast = ({
 		innerDiv: {},
 		titleDiv: {},
 		bodyDiv: {},
+		closeIcon: {},
 	});
 
 	useEffect(() => {
-		let newState = handleVariantState(variant);
+		let newState = handleVariantState(variant, additionalProps);
 		setVariantState(newState);
 		if (VariantHasIcon[variant]) {
-			console.log("variantHasIcon[variant]: ", VariantHasIcon[variant]);
 			setIcon(variant);
 		}
 		if (!VariantHasIcon[variant]) {
 			setIcon(null);
 		}
 		if (shouldShow) {
+			setTimeout(() => {
+				closeToast();
+			}, timeout);
 		}
 	}, [shouldShow, message, description, variant, timeout, additionalProps]);
 
@@ -180,8 +226,6 @@ const Toast = ({
 		});
 	};
 
-	console.log("Spring", springStyles);
-
 	return (
 		<web.div
 			className={clsx(
@@ -190,9 +234,16 @@ const Toast = ({
 					? styles.toast_main_container
 					: styles.toast_main_container_hidden
 			)}
-			style={springStyles}
+			style={{ ...variantState.mainDiv, ...springStyles }}
 			// style={variantState.mainDiv}
 		>
+			<div
+				className={clsx(styles.closeIcon, styles[`closeIcon-${variant}`])}
+				onClick={closeToast}
+				style={variantState.closeIcon}
+			>
+				<MdOutlineClose />
+			</div>
 			<div className={styles.leftWrapper}>
 				{Icon && (
 					<div
@@ -202,8 +253,14 @@ const Toast = ({
 					>
 						{(() => {
 							let IconN = VariantHasIcon[Icon];
-							console.log("Icon: ", Icon);
-							return <IconN className={styles.icon} onClick={closeToast} />;
+
+							return (
+								<IconN
+									className={styles.icon}
+									id={`notification-icon-${variant}`}
+									style={variantState.iconSvg}
+								/>
+							);
 						})()}
 					</div>
 				)}
@@ -212,6 +269,7 @@ const Toast = ({
 				<div style={variantState.titleDiv} className={styles.titleDiv}>
 					{message}
 				</div>
+
 				<div style={variantState.bodyDiv} className={styles.bodyDiv}>
 					{description}
 				</div>

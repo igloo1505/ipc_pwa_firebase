@@ -13,8 +13,8 @@ $shared-border-radius: 8px;
 	transform: translate(-50%, -100%);
 	z-index: 99999;
 	// Temporary:
-	background-color: $brandColor-200;
-	border: 1px solid $brandColor-600;
+	// background-color: $brandColor-200;
+	// border: 1px solid $brandColor-600;
 	border-radius: $shared-border-radius;
 	margin-top: 0.5rem;
 }
@@ -26,28 +26,35 @@ $shared-border-radius: 8px;
 }
 
 .innerDiv {
-	padding: 0.5rem;
+	padding: 0.3rem 0.5rem 0.5rem 0.5rem;
 	border-radius: $shared-border-radius;
+	position: relative;
 }
+
+.closeIcon {
+	position: absolute;
+	top: 0.2rem;
+	right: 0.3rem;
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.4);
+}
+.closeIcon-social {
+	color: #fff;
+}
+
 .titleDiv {
 	font-weight: 600;
 	color: #fff;
 	color: $brandColor-800;
 	font-size: 0.9rem;
 }
+
 .bodyDiv {
 	// padding: 0 0.5rem 0.5rem 0.5rem;
-	color: #00000099;
+	color: #696f8c;
 	font-weight: 100;
 	font-size: 0.7rem;
 	// color: $brandColor-700;
-}
-
-.icon {
-	margin-right: 0.5rem;
-	width: 1.2rem;
-	height: auto;
-	color: $brandColor-600;
 }
 
 .iconContainer {
@@ -55,12 +62,21 @@ $shared-border-radius: 8px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	& svg {
-		width: 1.2rem;
-		height: auto;
-		margin: 0.5rem 0 0.5rem 0.5rem;
-		color: $brandColor-600;
-	}
+	// & svg {
+	// 	width: 1.2rem;
+	// 	height: auto;
+	// 	margin: 0.5rem 0 0.5rem 0.5rem;
+	// 	// color: $brandColor-600;
+	// }
+}
+
+.icon {
+	margin-right: 0.5rem;
+	width: 1rem;
+	height: auto;
+	position: relative;
+	margin: 0.5rem 0 0.5rem 0.5rem;
+	// color: $brandColor-600;
 }
 
 .leftWrapper {

@@ -8,7 +8,7 @@ import { updateTileSettings } from "../../../state/actions/userActions";
 import gsap from "gsap";
 
 const defaultCurrentColor = "#c71f3a";
-const defaultCurrentTextColor = "#fff";
+const defaultCurrentTextColor = "rgba(255, 255, 255, 1)";
 const containerId = "color-picker-container";
 
 const ColorPicker = ({
@@ -90,9 +90,10 @@ const ColorPicker = ({
 		console.log("newCheckedValue: ", newCheckedValue);
 		setIsEditingText(!newCheckedValue);
 		if (newCheckedValue) {
+			console.log("setting text color to default: ");
 			setCurrentColorSettings({
 				...currentColorSettings,
-				textColor: currentColor?.textColor ?? defaultCurrentTextColor,
+				textColor: defaultCurrentTextColor,
 			});
 		}
 	};
