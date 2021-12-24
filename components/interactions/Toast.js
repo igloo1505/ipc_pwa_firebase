@@ -6,15 +6,7 @@ import { a as web } from "@react-spring/web";
 import { config, useSpring } from "@react-spring/core";
 import * as Types from "../../state/TYPES";
 import { getHSL } from "../../utils/getHSLcolor";
-import {
-	red,
-	blue,
-	purple,
-	yellow,
-	amber,
-	orange,
-	green,
-} from "material-ui-colors";
+import { red, blue, yellow, green } from "material-ui-colors";
 import clsx from "clsx";
 import { MdDangerous, MdWarning, MdOutlineClose } from "react-icons/md";
 import { BsCheckCircleFill } from "react-icons/bs";

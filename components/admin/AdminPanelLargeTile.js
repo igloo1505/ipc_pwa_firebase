@@ -3,7 +3,9 @@ import clsx from "clsx";
 import { connect, useDispatch } from "react-redux";
 import styles from "../../styles/AdminPanelLargeTile.module.scss";
 import { AiFillInfoCircle } from "react-icons/ai";
+import { useRouter } from "next/router";
 import * as Types from "../../state/TYPES";
+import store from "../../state/store";
 
 const AdminPanelLargeTile = ({
 	tile,
@@ -11,6 +13,7 @@ const AdminPanelLargeTile = ({
 	tileIndex,
 	settings: { customTileColors },
 }) => {
+	const router = useRouter();
 	const [infoIconHovered, setInfoIconHovered] = useState(false);
 	const dispatch = useDispatch();
 	const [customStyles, setCustomStyles] = useState({
@@ -53,12 +56,21 @@ const AdminPanelLargeTile = ({
 			},
 		});
 	};
+
+	const handleTileClick = () => {
+		tile.action({
+			state: store.getState(),
+			router: router,
+		});
+	};
+
 	return (
 		<div
 			className={clsx(styles.tileOuterContainer, gsapClassName)}
 			style={{
 				backgroundColor: customStyles.backgroundColor,
 			}}
+			onClick={handleTileClick}
 		>
 			<AiFillInfoCircle
 				className={styles.tileTextIcon}

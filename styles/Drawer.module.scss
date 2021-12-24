@@ -11,6 +11,7 @@
 	// overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	transform: translateX(100%);
 	@media screen and (min-width: $breakpoint-desktop) {
 		display: none;
 		& > * {

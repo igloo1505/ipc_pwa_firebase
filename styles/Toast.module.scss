@@ -17,6 +17,9 @@ $shared-border-radius: 8px;
 	// border: 1px solid $brandColor-600;
 	border-radius: $shared-border-radius;
 	margin-top: 0.5rem;
+	@media screen and (min-width: $breakpoint-desktop) {
+		min-width: 20rem;
+	}
 }
 
 .toast_main_container {

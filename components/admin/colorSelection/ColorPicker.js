@@ -90,7 +90,6 @@ const ColorPicker = ({
 		console.log("newCheckedValue: ", newCheckedValue);
 		setIsEditingText(!newCheckedValue);
 		if (newCheckedValue) {
-			console.log("setting text color to default: ");
 			setCurrentColorSettings({
 				...currentColorSettings,
 				textColor: defaultCurrentTextColor,

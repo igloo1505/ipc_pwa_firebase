@@ -21,8 +21,12 @@ const Drawer = ({
 	handleLogout,
 }) => {
 	const dispatch = useDispatch();
+	const [initialRender, setInitialRender] = useState(true);
 	useEffect(() => {
-		toggleDrawerAnimation(drawerIsOpen, settings.drawerEase);
+		if (!initialRender) {
+			// toggleDrawerAnimation(drawerIsOpen, settings.drawerEase);
+		}
+		setInitialRender(false);
 	}, [drawerIsOpen, viewportWidth]);
 
 	const handleLogoutInternally = () => {
@@ -94,7 +98,7 @@ export default connect(mapStateToProps, { handleLogout })(Drawer);
 const toggleDrawerAnimation = (isOpen, drawerEaseSettings) => {
 	if (isOpen) {
 		gsap.to(`#${drawerContainerId}`, {
-			transform: "translateX(0)",
+			transform: "translateX(-100%) !important",
 			ease: drawerEaseSettings.drawerEaseString,
 			duration: drawerEaseSettings.duration,
 			opacity: 1,
@@ -102,10 +106,10 @@ const toggleDrawerAnimation = (isOpen, drawerEaseSettings) => {
 	}
 	if (!isOpen) {
 		gsap.to(`#${drawerContainerId}`, {
-			transform: "translateX(100%)",
+			transform: "translateX(100%) !important",
 			// ease: "bounce.out",
 			duration: 0.2,
-			// opacity: 0,
+			opacity: 0,
 		});
 	}
 };
