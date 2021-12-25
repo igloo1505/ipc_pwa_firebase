@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 const tokenExpirationInHours = 24;
+import colors from "colors";
 
 export const handleCookies = (cookies, user) => {
 	let token = jwt.sign(
@@ -22,6 +23,7 @@ export const handleAuth = (cookies, user) => {
 	auth.success = false;
 	if (token) {
 		let decoded = jwt.verify(token, process.env.JWT_SECRET);
+		console.log(colors.bgBlack.red("decoded: ", decoded));
 		if (decoded._id === user._id.toString()) {
 			console.log("user: ", user);
 			auth.success = true;

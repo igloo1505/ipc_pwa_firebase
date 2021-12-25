@@ -40,6 +40,7 @@ const UserSchema = mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "AccessRights",
 			required: true,
+			autopopulate: true,
 		},
 		userSettings: {
 			type: mongoose.Schema.Types.ObjectId,

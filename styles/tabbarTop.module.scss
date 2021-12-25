@@ -1,8 +1,75 @@
+@import "variables";
+
 .outerContainer {
-	position: absolute;
-	top: 0;
-	left: 0;
+	// position: absolute;
+	// top: 0;
+	// left: 0;
 	width: max-content;
 	margin-left: 50%;
+	margin-top: 1rem;
 	transform: translateX(-50%);
+	box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff;
+	border-radius: 50px;
+	transition: all 0.2s ease-in-out;
+	&:hover {
+		box-shadow: 5px 5px 10px #b8b8b8, -5px -5px 10px #ffffff;
+	}
+}
+
+.tab {
+	// background-color: $brandColor-400;
+	border-radius: 50px;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	transition: all 0.2s ease-in-out;
+}
+
+.tab-viewAll {
+	border-top-left-radius: 50px !important;
+	border-bottom-left-radius: 50px !important;
+	border-top-right-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+	border-right: 2px solid transparent;
+}
+.tab-viewAll-active {
+	border-right: 2px solid $brandAccent-500;
+}
+
+.tab-addEvent {
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+}
+
+.tab-addEvent-active {
+	border-left: 1px solid $brandAccent-500;
+	border-right: 1px solid $brandAccent-500;
+}
+
+.tab-editActiveEvents {
+	// background-color: $brandColor-400;
+	// border-radius: 50px;
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+	border-top-right-radius: 50px !important;
+	border-bottom-right-radius: 50px !important;
+	border-left: 2px solid transparent;
+}
+.tab-editActiveEvents-active {
+	border-left: 2px solid $brandAccent-500;
+}
+
+.activeTab {
+	// background-color: $brandColor-400;
+	border-radius: 50px;
+	box-shadow: inset 2px 2px 2px #caced8, inset -2px -2px 2px #ffffff;
+}
+
+.tabList {
+	margin: 0 !important;
+	padding: 0.5rem !important;
+	border-radius: 50px;
 }

@@ -1,9 +1,11 @@
 import React from "react";
+import AddEventForm from "./AddEventForm";
+import styles from "../../styles/AddEvent.module.scss";
 
-const AddEvent = () => {
+const AddEvent = ({ tabs, activeTabIndex }) => {
 	return (
-		<div>
-			<div>Add Events here</div>
+		<div className={styles.addEventContainer}>
+			<AddEventForm tabs={tabs} activeTabIndex={activeTabIndex} />
 		</div>
 	);
 };

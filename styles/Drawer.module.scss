@@ -1,7 +1,7 @@
 @import "variables";
 
 .drawerContainer {
-	width: 50vw;
+	width: min(50vw, 425px);
 	height: 100vh;
 	background-color: #fff;
 	position: absolute;
@@ -20,6 +20,7 @@
 	}
 }
 .drawerContainerOpen {
+	opacity: 1 !important;
 	// box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
 }
 .sidebarLinkSection {

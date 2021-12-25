@@ -12,6 +12,7 @@
 	padding: 1rem;
 	overflow-y: auto;
 	overflow-x: hidden;
+	background-color: #e0e0e0;
 	@media screen and (min-width: $breakpoint-tablet) {
 		height: calc(100vh - $navbar-height-tablet);
 		justify-content: center;

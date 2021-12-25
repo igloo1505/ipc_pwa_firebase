@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../styles/tabbarTop.module.scss";
 import { Tablist, Tab } from "evergreen-ui";
 import Link from "next/link";
+import clsx from "clsx";
 
 const Tabbar_top_carouselEvents = ({
 	tabs,
@@ -23,7 +24,12 @@ const Tabbar_top_carouselEvents = ({
 						onSelect={() => setActiveTabIndex(index)}
 						isSelected={index === activeTabIndex}
 						aria-controls={`panel-${tab}`}
-						className={styles.tab}
+						className={clsx(
+							styles.tab,
+							styles[`tab-${tab.key}`],
+							index === activeTabIndex && styles.activeTab,
+							index === activeTabIndex && styles[`tab-${tab.key}-active`]
+						)}
 						href={`pastorPeople/carouselEvents/${tab.key}`}
 					>
 						{tab.displayText}

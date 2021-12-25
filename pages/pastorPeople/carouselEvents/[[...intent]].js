@@ -10,9 +10,10 @@ import EditActiveEvents from "../../../components/admin/EditActiveEvents";
 
 const carouselEvents = ({
 	UI: {
-		viewport: { viewportWidth, viewportHeight },
+		viewport: { width: viewportWidth, height: viewportHeight },
 	},
 }) => {
+	console.log("viewportWidth: ", viewportWidth);
 	const router = useRouter();
 	const [tabs, setTabs] = useState([
 		{
@@ -34,7 +35,9 @@ const carouselEvents = ({
 		console.log("params???: ", param);
 		param ??= "viewAll";
 		console.log("param: ", param);
-		setActiveTabIndex(tabs.findIndex((tab) => tab.key === param[0]));
+		let _index = tabs.findIndex((tab) => tab.key === param[0]);
+		if (_index === -1) _index = 0;
+		setActiveTabIndex(_index);
 	}, []);
 
 	return (
@@ -53,9 +56,15 @@ const carouselEvents = ({
 				/>
 			)}
 			<div className={styles.mainContainerInner}>
-				{activeTabIndex === 0 && <ViewAllEvents />}
-				{activeTabIndex === 1 && <AddEvent />}
-				{activeTabIndex === 2 && <EditActiveEvents />}
+				{activeTabIndex === 0 && (
+					<ViewAllEvents tabs={tabs} activeTabIndex={activeTabIndex} />
+				)}
+				{activeTabIndex === 1 && (
+					<AddEvent tabs={tabs} activeTabIndex={activeTabIndex} />
+				)}
+				{activeTabIndex === 2 && (
+					<EditActiveEvents tabs={tabs} activeTabIndex={activeTabIndex} />
+				)}
 			</div>
 		</div>
 	);

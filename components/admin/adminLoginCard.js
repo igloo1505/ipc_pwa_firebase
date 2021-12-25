@@ -125,11 +125,51 @@ const mapStateToProps = (state, props) => ({
 export default connect(mapStateToProps, { authenticate })(adminLoginCard);
 
 const animateEntrance = () => {
-	gsap.from(`#${slidingContainerId}`, {
-		y: -400,
-		duration: 1,
-		scale: 0.3,
-		opacity: 0,
-		ease: "power3.inOut",
-	});
+	let tl = gsap.timeline();
+	tl.fromTo(
+		`#${slidingContainerId}`,
+		{
+			y: -400,
+			scale: 0.3,
+			opacity: 0,
+			// boxShadow: "none",
+			duration: 1.0,
+			ease: "power3.inOut",
+		},
+		{
+			y: 0,
+			scale: 1,
+			opacity: 1,
+			// boxShadow: "none",
+			// boxShadow: "10px 10px 21px #afafaf, -10px -10px 21px #ffffff",
+			duration: 1.0,
+			ease: "power3.inOut",
+		}
+	);
+	tl.fromTo(
+		`#${slidingContainerId}`,
+		{
+			border: "none",
+			duration: 0.3,
+			ease: "power3.inOut",
+		},
+		{
+			border: "1px solid #fff",
+			duration: 0.3,
+			ease: "power3.inOut",
+		}
+	);
+	tl.fromTo(
+		`#${slidingContainerId}`,
+		{
+			boxShadow: "none",
+			duration: 1.5,
+			ease: "power3.inOut",
+		},
+		{
+			boxShadow: "10px 10px 21px #afafaf, -10px -10px 21px #ffffff",
+			duration: 1.5,
+			ease: "power3.inOut",
+		}
+	);
 };

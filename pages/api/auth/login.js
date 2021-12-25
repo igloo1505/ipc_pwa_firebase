@@ -44,8 +44,10 @@ handler.post(async (req, res) => {
 				UIMessage: uiMessage,
 			});
 		}
+		let _user = user.toObject();
+		delete _user.password;
+
 		let userSettings = await UserSettings.findById(user.userSettings._id);
-		handleCookies(cookies, user);
 
 		// if (req.body.rememberMe) {
 		//     await handleRememberMe(user, req, cookies);

@@ -1,0 +1,26 @@
+@import "variables";
+.tabList {
+	margin-top: 2rem;
+}
+
+.outerContainer {
+	box-shadow: 8px 8px 16px #d0d0d0;
+	margin-top: 1px;
+	// z-index: 9999999;
+}
+
+.tab {
+	background-color: $brandColor-400;
+	background: #e0e0e0;
+	// border-radius: 50px;
+	// box-shadow:  20px 20px 60px #bebebe,
+	// 			 -20px -20px 60px #ffffff;;
+	border-right: 3px solid transparent;
+	margin: 1.5rem 0;
+}
+
+.activeTab {
+	box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff !important;
+	border-right: 3px solid $brandColor-400;
+	transition: all 0.3s ease-in-out;
+}

@@ -7,7 +7,8 @@ import store from "../state/store";
 import * as Types from "../state/TYPES";
 import ColorPicker from "../components/admin/colorSelection/ColorPicker";
 import Toast from "../components/interactions/Toast";
-
+import { ThemeProvider } from "evergreen-ui";
+import defaultTheme from "../appData/defaultTheme";
 // import AdminPanelLargeTile from "../components/admin/AdminPanelLargeTile";
 // Bad idea and hugeeeee waste of time... maybe come back to it when I'm bored.
 // import AdminTileColorDropdown from "../components/admin/AdminTileColorDropdown";

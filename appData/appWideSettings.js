@@ -22,6 +22,7 @@ export default {
 	],
 	drawerEase: {
 		duration: 1,
-		drawerEaseString: "bounce.out",
+		// drawerEaseString: "bounce.out",
+		drawerEaseString: "power4.out",
 	},
 };
