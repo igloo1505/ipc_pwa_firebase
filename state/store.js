@@ -11,6 +11,7 @@ import UIReducer from "./UIReducer";
 import networkReducer from "./networkReducer";
 import accessReducer from "./accessReducer";
 import settingReducer from "./settingReducer";
+import adminReducer from "./adminReducer";
 const initialState = {};
 
 const withDevtools = () => {
@@ -24,6 +25,7 @@ const store = configureStore({
 		network: networkReducer,
 		access: accessReducer,
 		settings: settingReducer,
+		admin: adminReducer,
 	},
 	devTools: () => withDevtools(),
 });

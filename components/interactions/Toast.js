@@ -27,20 +27,20 @@ let VariantHasIcon = {
 
 let iconContainerId = "icon-container-notificationt-toast";
 
-const temporaryDispatchFakeToast = () => {
-	store.dispatch({
-		type: Types.SHOW_TOAST_NOTIFICATION,
-		payload: {
-			shouldShow: true,
-			message: "Test title right here",
-			description:
-				"adipiscing elits, sed dod eiusmod tempor incididunt ut labore et dolore magna aliqua. Test with exactly 141 characters just out of principle.",
-			variant: "social",
-			timeout: 3000,
-			additionalProps: {},
-		},
-	});
-};
+// const temporaryDispatchFakeToast = () => {
+// 	store.dispatch({
+// 		type: Types.SHOW_TOAST_NOTIFICATION,
+// 		payload: {
+// 			shouldShow: true,
+// 			message: "Test title right here",
+// 			description:
+// 				"adipiscing elits, sed dod eiusmod tempor incididunt ut labore et dolore magna aliqua. Test with exactly 141 characters just out of principle.",
+// 			variant: "social",
+// 			timeout: 3000,
+// 			additionalProps: {},
+// 		},
+// 	});
+// };
 
 const setIconColor = () => {
 	if (typeof window === "undefined") return;
@@ -48,7 +48,6 @@ const setIconColor = () => {
 };
 
 const handleVariantState = (_variant, additionalProps) => {
-	console.log("_variant, additionalProps: ", _variant, additionalProps);
 	switch (_variant) {
 		case "success":
 			return {
@@ -162,7 +161,7 @@ const handleVariantState = (_variant, additionalProps) => {
 
 const Toast = ({
 	toast: {
-		shouldShow,
+		shouldShow: shouldShowRedux,
 		message,
 		description,
 		variant,
@@ -170,18 +169,24 @@ const Toast = ({
 		additionalProps,
 	},
 }) => {
+	const [shouldShow, setShouldShow] = useState(shouldShowRedux);
+
+	useEffect(() => {
+		setShouldShow(shouldShowRedux);
+	}, [shouldShowRedux]);
+
 	const dispatch = useDispatch();
 	const [Icon, setIcon] = useState(null);
 
-	useEffect(() => {
-		if (typeof window !== "undefined") {
-			document.addEventListener("keyup", (e) => {
-				if (e.code === "Space") {
-					temporaryDispatchFakeToast();
-				}
-			});
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (typeof window !== "undefined") {
+	// 		document.addEventListener("keyup", (e) => {
+	// 			if (e.code === "Space") {
+	// 				temporaryDispatchFakeToast();
+	// 			}
+	// 		});
+	// 	}
+	// }, []);
 
 	const springStyles = useSpring({
 		opacity: shouldShow ? 1 : 0,
@@ -206,9 +211,11 @@ const Toast = ({
 			setIcon(null);
 		}
 		if (shouldShow) {
+			let _timeout = timeout || 3000;
+			console.log("timeout: ", _timeout);
 			setTimeout(() => {
 				closeToast();
-			}, timeout);
+			}, _timeout);
 		}
 	}, [shouldShow, message, description, variant, timeout, additionalProps]);
 
@@ -261,7 +268,6 @@ const Toast = ({
 				<div style={variantState.titleDiv} className={styles.titleDiv}>
 					{message}
 				</div>
-
 				<div style={variantState.bodyDiv} className={styles.bodyDiv}>
 					{description}
 				</div>

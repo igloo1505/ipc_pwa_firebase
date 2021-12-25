@@ -147,6 +147,20 @@ const modalReducer = createReducer(initialState, (builder) => {
 			},
 		};
 	});
+	builder.addCase(Types.SET_UI_MESSAGE, (state, action) => {
+		return {
+			...state,
+			notifications: {
+				...state.notifications,
+				toast: {
+					...state.notifications.toast,
+					...action.payload,
+					...(action.payload.text && { message: action.payload.text }),
+					shouldShow: true,
+				},
+			},
+		};
+	});
 });
 
 export default modalReducer;
